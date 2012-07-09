@@ -1,0 +1,135 @@
+.clear-fix {
+  *zoom: 1;
+}
+.clear-fix:before,
+.clear-fix:after {
+  display: table;
+  content: "";
+}
+.clear-fix:after {
+  clera: both;
+}
+.btn:active {
+  background-color: #479916;
+  background-image: none;
+  outline: 0;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1 ;
+  padding: 10px 30px;
+  box-shadow: inset 0 1px 0 #78c54a;
+  border: 1px solid #469f11;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(136, 192, 101, 0.7);
+  background-repeat: repeat-x;
+  background-color: #4a9e17;
+  background-image: -moz-linear-gradient(top, #53ae1b, #3d8711);
+  background-image: -ms-linear-gradient(top, #53ae1b, #3d8711);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#53ae1b), to(#3d8711));
+  background-image: -webkit-linear-gradient(top, #53ae1b, #3d8711);
+  background-image: -o-linear-gradient(top, #53ae1b, #3d8711);
+  background-image: linear-gradient(top, #53ae1b, #3d8711);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#53ae1b', endColorstr='#3d8711', GradientType=0);
+  border-color: #3d8711 #3d8711 #1e4308;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #3d8711;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.btn:hover,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  background-color: #3d8711;
+  *background-color: #33700e;
+}
+.btn:active,
+.btn.active {
+  background-color: #295a0b \9;
+}
+.btn:hover {
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -ms-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+.btn-gray:active {
+  background-color: #8b8b8b;
+}
+.btn-gray {
+  box-shadow: inset 0 1px 0 #ababab;
+  border: 1px solid #858585;
+  background-color: #8b8b8b;
+  text-shadow: 0 1px 1px rgba(170, 171, 171, 0.7);
+  background-color: #8e8e8e;
+  background-image: -moz-linear-gradient(top, #9b9b9b, #7a7a7a);
+  background-image: -ms-linear-gradient(top, #9b9b9b, #7a7a7a);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#9b9b9b), to(#7a7a7a));
+  background-image: -webkit-linear-gradient(top, #9b9b9b, #7a7a7a);
+  background-image: -o-linear-gradient(top, #9b9b9b, #7a7a7a);
+  background-image: linear-gradient(top, #9b9b9b, #7a7a7a);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9b9b9b', endColorstr='#7a7a7a', GradientType=0);
+  border-color: #7a7a7a #7a7a7a #545454;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #7a7a7a;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.btn-gray:hover,
+.btn-gray:active,
+.btn-gray.active,
+.btn-gray.disabled,
+.btn-gray[disabled] {
+  background-color: #7a7a7a;
+  *background-color: #6d6d6d;
+}
+.btn-gray:active,
+.btn-gray.active {
+  background-color: #616161 \9;
+}
+.close {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 18px;
+  color: black;
+  text-shadow: 0 1px 0 white;
+  opacity: 0.2;
+  text-decoration: none;
+  filter: alpha(opacity=20);
+}
+.close:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  font-size: 0;
+  line-height: 0;
+  border-width: 4px;
+  border-color: #ffffff transparent transparent transparent;
+  border-style: solid dashed dashed dashed;
+  content: "";
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
