@@ -1,4 +1,5 @@
 
-.button b{
-	vertical-align: middle; 
-}
+
+.btn-wrap, .dropdown-wrap{ display: inline-block; *display: inline; *zoom: 1; } 
+.dropdown-wrap{ position: relative; }
+.dropdown-wrap b{ vertical-align: middle; }

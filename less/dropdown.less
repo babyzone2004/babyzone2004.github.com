@@ -1,0 +1,56 @@
+// dropdown.less
+// 下拉框样式
+// -----------------------------------------------------------------
+
+/* ------------------------------dropdown---------------------------- */
+.open {
+  *z-index: 1000;
+}
+.open .dropdown-menu {
+  display: block;
+}
+.open .caret {
+  .rotate(180deg, 50%, 25%);
+}
+.caret {
+  .transition(all .3s ease );
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 135px;
+  padding: 4px 0;
+  margin: 1px 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+}
+.dropdown-menu li{ display: inline; }
+.dropdown-menu a {
+  text-decoration: none;
+  display: block;
+  padding: 3px 15px;
+  font-weight: normal;
+  line-height: 18px;
+  color: #333333;
+  white-space: nowrap;
+}
+.dropdown-menu a:hover,
+.dropdown-menu a.active {
+  color: #ffffff;
+  background-color: #0088cc;
+}
+.dropdown-menu a.active {
+  border-top: 1px solid #fff; 
+  border-bottom: 1px solid #fff; 
+}

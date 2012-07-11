@@ -5,23 +5,49 @@
 <title></title>
 	<link href="css/home.css" rel="stylesheet" type="text/css" />
 	<link href="css/bUI.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="script/sea.js" data-main="./script/home"></script>
-	<style type="text/css">
-	/*<![CDATA[*/
-
-	/*]]>*/
-	</style>
+	<link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-<div class="button"> 
+<body onload="prettyPrint()">
 <br />
-<a href="" class="btn">提交 <b class="caret"></b></a> 
-<a href="" class="btn btn-gray">取消</a>
-
+<div class="btn-wrap"> 
+	<a href="javascript:" class="btn" id="J-btn">提交</a> 
+	<a href="javascript:" class="btn btn-gray">取消</a> 
+</div>
+ 
+<div class="dropdown-wrap">
+	<a href="javascript:"  data-toggle="dropdown"  class="btn">下拉 <b class="caret"></b></a> 
+	<ul class="dropdown-menu">
+	  <li><a href="#">Action</a></li>
+	  <li><a href="#">Another action</a></li>
+	  <li><a class="active" href="#">Something else here</a></li>
+	  <li><a href="#">Separated link</a></li>
+	</ul>
 </div>
 
-<script type="text/javascript">
 
-</script>
+<pre class="prettyprint linenums" style="margin-bottom: 9px;">&lt;div class="button"&gt; <br />	&lt;a href="javascript:" class="btn"&gt;提交 &lt;b class="caret"&gt;&lt;/b&gt;&lt;/a&gt; <br />	&lt;a href="javascript:" class="btn btn-gray"&gt;取消&lt;/a&gt;<br />&lt;/div&gt;</pre>
+
+<pre class="prettyprint linenums" style="margin-bottom: 9px;">&lt;!-- 推送成功 --&gt;<br />&lt;div class="modal" id="dialog-sucessful" style="display:none;"&gt;<br />	&lt;div class="modal-header"&gt;<br />		&lt;h3 class="dialog-title"&gt;推送成功&lt;/h3&gt;<br />	&lt;/div&gt;<br />	&lt;div class="modal-body"&gt;<br />		&lt;p&gt;已经将“新浪微博”推送到您的手机请在手机上完成安装&lt;/p&gt;<br />	&lt;/div&gt;<br />	&lt;div class="modal-footer"&gt;<br />		&lt;a href="#" class="btn" id="J-autoclose" data-dismiss="modal"&gt;知道了&lt;/a&gt;<br />	&lt;/div&gt;<br />&lt;/div&gt;</pre>
+
+<pre class="prettyprint linenums lang-js" style="margin-bottom: 9px;">//modal方法<br />$("#dialog-sucessful").modal({<br />hasClose : false, //右上角是否显示关闭按钮<br />autoCloseTime : 5, //按钮处是否设置自动关闭事件<br />backdrop : false, //默认"static"，即不可通过点击背景关闭dialog，false表示不需要背景<br />});<br />//当然你也可以直接通过字符串操作dialog：<br />$('#myModal').modal('toggle')  <br />$('#myModal').modal('show')<br />$('#myModal').modal('hide')</pre>
+
+<pre class="prettyprint linenums lang-js" style="margin-bottom: 9px;">//modal事件<br />//show dialog显示的时候触发<br />//shown dialog显示完毕的时候触发<br />//hide dialog关闭的时候触发<br />//hidden dialog关闭完毕的时候触发<br />$('#myModal').on('hidden', function () {<br />// do something…<br />})</pre>
+
+<!-- 推送成功 -->
+<div class="modal" id="dialog-sucessful" style="display:none;">
+	<div class="modal-header">
+		<h3 class="dialog-title">推送成功</h3>
+	</div>
+	<div class="modal-body">
+		<p>已经将“新浪微博”推送到您的手机请在手机上完成安装</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" id="J-autoclose" data-dismiss="modal">知道了</a>
+	</div>
+</div>
+
+<script src="script/ext/sea-jquery.js" data-main="./script/home"></script>
+<script src="assets/js/google-code-prettify/prettify.js" data-main="./script/home"></script>
+<script src="script/ext/sea-jquery.js" data-main="./script/home"></script>
 </body>
 </html>
