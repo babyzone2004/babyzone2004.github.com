@@ -6,26 +6,34 @@
 * @description:   data-toggle="dropdown"
 */
 define(function(require, exports) {
-	var elem = '[data-toggle="dropdown"]'; 
+	var elem = '[data-toggle="dropdown"]';
+	var openDropdowns = null;
+
+
 	function toggle(e) {
-		var target = $(e.target),
+		var target = $(e.currentTarget),
 		parent = target.parent(),
-		isActive = parent.hasClass("open");
+		isActive = parent.hasClass("open-dropdown-toggle");
 		//先清除所有的下拉菜单
 		clearMenus();
 		if(!isActive) {
-			parent.toggleClass('open');
+			parent.toggleClass('open-dropdown-toggle');
+			openDropdowns = parent;
 		}
 		e.stopPropagation();
 		$('html').on('click.dropdown.data-api', function() {
 			clearMenus();
 		})
 	}
+
+	
 	function clearMenus() {
-		$(elem).parent().removeClass('open')
+		if(openDropdowns != null){
+			openDropdowns.removeClass('open-dropdown-toggle');
+			openDropdowns = null;
+		}
+		$('html').off('click.dropdown.data-api');
 	}
-	$(function() {
-		$('body').on('click.dropdown.data-api', elem, toggle);
-	})
+	$('body').on('click.dropdown.data-api', elem, toggle);
 });
- 
+

@@ -8,6 +8,8 @@
 * @param   {Object} 对话框配置功能
 * @event  {event}  触发show, shown, hide, hidden四种事件
 */
+
+
 define(function(require, exports) {
 	var Modal = function (content, options) {
 		this.options = options;
@@ -18,6 +20,8 @@ define(function(require, exports) {
 			dialog.find(".modal-header").prepend('<a href="#" class="close" data-dismiss="modal">×</a>');
 		}
 	}
+
+
 	Modal.prototype = {
 		constructor: Modal
 		, toggle: function () {
@@ -50,6 +54,8 @@ define(function(require, exports) {
 			}
 		}
 	}
+
+
 	function autoClose(){
 		var that = this;
 		var _autoCloseTime = this.options.autoCloseTime;
@@ -64,10 +70,14 @@ define(function(require, exports) {
 			}
 		}, 1000)
 	}
+
+
 	function hideModal() {
 		this.$element.hide().trigger('hidden');
 		backdrop.call(this);
 	}
+
+
 	function backdrop(callback) {
 		if (this.isShown && this.options.backdrop) {
 			this.$backdrop = $('<div class="modal-backdrop" />').appendTo(document.body);
@@ -84,10 +94,14 @@ define(function(require, exports) {
 			callback();
 		}
 	}
+
+
 	function removeBackdrop() {
 		this.$backdrop.remove();
 		this.$backdrop = null;
 	}
+
+
 	//设置是否自动关闭
 	//data为Modal
 	$.fn.modal = function (option) {
@@ -99,6 +113,8 @@ define(function(require, exports) {
 			else if (options.show) data.show();
 		})
 	}
+
+
 	//默认背景点击不关闭
 	$.fn.modal.defaults = {
 		backdrop: "static"
@@ -107,6 +123,8 @@ define(function(require, exports) {
 		, autoCloseTime: 0
 	}
 	$.fn.modal.Constructor = Modal;
+
+	
 	$(function () {
 		$('body').on('click.modal.data-api', '[data-toggle="modal"]', function ( e ) {
 			var $this = $(this), href

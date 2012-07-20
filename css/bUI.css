@@ -1,3 +1,30 @@
+/* ------------------------------reset---------------------------- */
+body,
+ul,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body {
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f6f6f6;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+img {
+  border: 0;
+}
+/* ------------------------------variables---------------------------- */
 .clear-fix {
   *zoom: 1;
 }
@@ -180,13 +207,13 @@
   filter: alpha(opacity=40);
 }
 /* ------------------------------dropdown---------------------------- */
-.open {
+.open-dropdown-toggle {
   *z-index: 1000;
 }
-.open .dropdown-menu {
+.open-dropdown-toggle .dropdown-menu {
   display: block;
 }
-.open .caret {
+.open-dropdown-toggle .caret {
   -moz-transform-origin: 50% 25%;
   -moz-transform: rotate(180deg);
   -webkit-transform-origin: 50% 25%;
@@ -245,6 +272,61 @@
 .dropdown-menu a.active {
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
+}
+/* ------------------------------accordion---------------------------- */
+.accordion {
+  width: 400px;
+  margin: 10px auto 30px auto;
+  text-align: left;
+}
+.accordion h3 {
+  padding: 5px 20px;
+  position: relative;
+  z-index: 20;
+  display: block;
+  height: 30px;
+  cursor: pointer;
+  color: #777;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+  line-height: 33px;
+  font-size: 19px;
+  background: #ffffff;
+  background-color: #f7f7f7;
+  background-image: -moz-linear-gradient(top, #ffffff, #eaeaea);
+  background-image: -ms-linear-gradient(top, #ffffff, #eaeaea);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#eaeaea));
+  background-image: -webkit-linear-gradient(top, #ffffff, #eaeaea);
+  background-image: -o-linear-gradient(top, #ffffff, #eaeaea);
+  background-image: linear-gradient(top, #ffffff, #eaeaea);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eaeaea', GradientType=0);
+  box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3), 1px 0px 0px 0px rgba(255, 255, 255, 0.9) inset, 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.accordion h3.active {
+  background: #c6e1ec;
+  color: #3d7489;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3), 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.accordion .accordion-con {
+  color: #777777;
+  line-height: 23px;
+  height: 0px;
+  overflow: hidden;
+  font-size: 14px;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3);
+  -webkit-transition: height 0.3s ease;
+  -moz-transition: height 0.3s ease;
+  -ms-transition: height 0.3s ease;
+  -o-transition: height 0.3s ease;
+  transition: height 0.3s ease;
+}
+.accordion .accordion-con.open {
+  height: 60px;
+}
+.accordion .accordion-con p {
+  padding: 20px;
 }
 .caret {
   display: inline-block;

@@ -9,4 +9,8 @@ define(function(require) {
 			autoCloseTime : 5
 		});
 	});
+
+	require("./ui/accordion").init($('.accordion'));
+
+
 });
