@@ -68,4 +68,7 @@ define(function(require) {
 		action:'http://localhost/opensource/babyzone-git/test.html'
 	});
 	window['su'] = su;
+
+
+	
 });
