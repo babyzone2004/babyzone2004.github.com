@@ -25,16 +25,16 @@ img {
   border: 0;
 }
 /* ------------------------------variables---------------------------- */
-.clear-fix {
+.cf {
   *zoom: 1;
 }
-.clear-fix:before,
-.clear-fix:after {
+.cf:before,
+.cf:after {
   display: table;
   content: "";
 }
-.clear-fix:after {
-  clera: both;
+.cf:after {
+  clear: both;
 }
 .btn:active {
   background-color: #479916;
@@ -327,6 +327,202 @@ img {
 }
 .accordion .accordion-con p {
   padding: 20px;
+}
+/* ------------------------------comment--------------------------- */
+.comment {
+  width: 740px;
+  padding-top: 15px;
+  border: 1px solid #E1E1E8;
+  margin: 0 auto;
+}
+/*star-rank*/
+.star-rank {
+  background: url(http://resource.xiaomi.net/miuimarket/rank.gif) no-repeat;
+  width: 105px;
+  height: 16px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  overflow: hidden;
+}
+.star-rank.s0 {
+  background-position: 0 0;
+}
+.star-rank.s1 {
+  background-position: 0 -16px;
+}
+.star-rank.s2 {
+  background-position: 0 -32px;
+}
+.star-rank.s3 {
+  background-position: 0 -48px;
+}
+.star-rank.s4 {
+  background-position: 0 -64px;
+}
+.star-rank.s5 {
+  background-position: 0 -80px;
+}
+.rating {
+  padding: 0 0 24px 0;
+  border-bottom: 2px solid #e8e8e8;
+}
+.rating-cur {
+  width: 260px;
+  float: left;
+  padding-right: 28px;
+  border-right: 1px solid #e9e9e9;
+}
+.rating-cur-tit {
+  padding-bottom: 12px;
+  line-height: 17px;
+  height: 17px;
+}
+.rating-cur-tit b,
+.comment-ac b {
+  padding: 0 11px 0 27px;
+  vertical-align: middle;
+}
+.rating-cur-tit .star-rank,
+.comment-ac .star-rank {
+  vertical-align: middle;
+}
+.status-list {
+  padding-left: 10px;
+}
+.status-list span {
+  display: inline-block;
+  height: 21px;
+  vertical-align: middle;
+}
+.item-star {
+  width: 82px;
+  background: url(http://resource.xiaomi.net/miuimarket/app/star.png) no-repeat;
+}
+.status-list .star5 {
+  background-position: 0 -2px;
+}
+.status-list .star4 {
+  background-position: 0 -23px;
+}
+.status-list .star3 {
+  background-position: 0 -43px;
+}
+.status-list .star2 {
+  background-position: 0 -64px;
+}
+.status-list .star1 {
+  background-position: 0 -85px;
+}
+.progress-bar {
+  width: 126px;
+  background: url(http://resource.xiaomi.net/miuimarket/app/star.png) -82px -2px no-repeat;
+}
+.bar {
+  width: 126px;
+  background: url(http://resource.xiaomi.net/miuimarket/app/star.png) -84px -23px no-repeat;
+}
+.stars {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1 ;
+  padding-top: 2px;
+  width: 120px;
+  height: 20px;
+  vertical-align: middle;
+  overflow: hidden;
+}
+.stars a {
+  display: inline-block;
+  width: 22px;
+  height: 16px;
+  background: url(http://resource.xiaomi.net/miuimarket/rank.gif) 0 0px no-repeat;
+}
+.stars .hover {
+  background: url(http://resource.xiaomi.net/miuimarket/rank.gif) 0 -48px no-repeat;
+}
+.comment-ac {
+  float: left;
+}
+.comment-ac-wrap {
+  padding: 12px 0 0 28px;
+}
+.comment-ac-wrap textarea {
+  width: 392px;
+  height: 54px;
+  overflow: auto;
+  display: inline-block;
+  padding: 4px;
+  margin-bottom: 9px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #555;
+  border: 1px solid #CCC;
+  border-radius: 3px;
+}
+.comment-ac-wrap a {
+  color: #F80;
+  line-height: 33px;
+  color: #fff;
+}
+.comment-btn {
+  text-align: right;
+}
+.comment .btn {
+  padding: 0 15px;
+}
+.comment-list li {
+  border-bottom: 1px solid #e8e8e8;
+  overflow: hidden;
+}
+.comment-wrap {
+  padding: 20px 12px 12px 40px;
+  font-size: 12px;
+  color: #999999;
+}
+.comment-wrap .star-rank,
+.comment-wrap span {
+  vertical-align: middle;
+}
+.comment-wrap span {
+  margin-left: 11px;
+}
+.comment-wrap p {
+  margin: 10px 0;
+  color: #333333;
+  line-height: 21px;
+}
+/* -----------------------table---------------------------- */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.table {
+  width: 100%;
+  margin: 12px 0 35px 0;
+}
+.table th,
+.table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  border: 1px solid #dddddd;
+}
+.table th {
+  font-weight: bold;
+  color: #7a7a7a;
+  box-shadow: inset 0 0 2px 1px #fff;
+}
+.table td {
+  background: #fff;
+  height: 23px;
+}
+.table .table-r {
+  text-align: right;
+}
+.table .caret {
+  vertical-align: middle;
+  border-color: #443131 transparent transparent transparent;
 }
 .caret {
   display: inline-block;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+	<link href="css/home.css" rel="stylesheet" type="text/css" />
+	<link href="css/bUI.css" rel="stylesheet" type="text/css" />
+	<link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	#sortableWrap{ overflow:hidden;zoom:1}
+#sortable { position: relative; list-style-type: none; margin: 0; padding: 0; overflow:hidden; float:left}
+#sortable li { float: left; width:100px; height:185px; padding:2px; text-align:center; font-size:12px; border:1px solid #ccc; margin-right:4px; margin-bottom:4px;border-radius:5px; background:#f6f6f6; overflow:hidden; position:relative }
+.file {position: absolute;bottom:0; left:0;height: 24px;filter: alpha(opacity:0);opacity: 0;width: 260px; width:70px;}
+.filebtn{position: absolute;bottom:2px; left:4px;}
+.filedel{position: absolute;bottom:2px; right:4px;}
+.filename{position: absolute;top:80px; left:0; width:100%; text-align:center}
+.filethumb{position: absolute; left:2px;top:2px;}
+.fileadd{ position: absolute; right:0; width:100px; height:185px; padding:2px; cursor:pointer; border:1px solid #ccc; margin-right:4px; margin-bottom:4px;border-radius:5px; background:#F7F7F7 url(http://developer.xiaomi.com/resource.xiaomi.net/miuimarket/dev/add.gif) no-repeat center center;}
+
+.box-tit-left-detail{font-size:14px;padding-bottom:4px;padding-top:20px;text-align:left;padding-left:10px}
+.current{ opacity: 0;}
+.current .file{ width:106px; height:191px; cursor: pointer; }
+</style>
+</head>
+<body onload="prettyPrint()">
+
+<div class="box">
+          请上传至少2张图片，规格：854*480或800*480，支持横屏或竖屏<br><br>
+          <div id="sortableWrap">
+          	<ul id="sortable" class="ui-sortable" style=""></ul>
+          </div>
+          <span class="failed"></span>
+          </div>
+
+<script src="script/ext/sea-jquery.js" data-main="./script/home"></script>
+<script src="assets/js/google-code-prettify/prettify.js" data-main="./script/home"></script>
+</body>
+</html>

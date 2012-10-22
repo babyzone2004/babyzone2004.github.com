@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>siteb</title>
+</head>
+
+<body>
+<p>域：http://localhost:82/siteb.html</p>
+<span>收到参数：</span><input id="param" type="text"  />
+<input id="button" type="button" value="延至原域" onclick="gotoLocal()" /><br />
+<input  type="button" value="显示父域" onclick="alert(parent.document);" />
+<iframe id="local"></iframe><br />
+<span>处理结果是：</span>
+<input type="text" id="result" /><br />
+<script type="text/javascript">
+	var local=document.getElementById("local").contentWindow;
+	var param=document.getElementById("param");
+	var result=document.getElementById("result");
+	
+	param.value=location.hash.substring(1);
+	result.value=param.value+"world";	
+	
+	function gotoLocal(){
+		local.location="http://localhost:81/local.html#"+result.value;	
+	}
+</script>
+</body>
+</html>

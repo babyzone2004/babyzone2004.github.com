@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link href="css/home.css" rel="stylesheet" type="text/css" />
+<link href="css/bUI.css" rel="stylesheet" type="text/css" />
+<link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" />
+<script src="script/ext/jquery-1.7.2.min.js" ></script>
+<script src="script/ui/jquery.pagination.js"></script>
+<script type="text/javascript">
+$(function(){
+    getPageNum(0);
+});
+function getPageData(pageIndex) {
+    $.ajax({
+        url: 'http://localhost/opensource/babyzone-git/api.php',
+        type: 'GET',
+        data: {page: pageIndex},
+        dataType: 'json',
+        success: function(data) {
+            console.log(data.comment);
+            $('#result').text(data.comment.name);
+        }
+    });
+}
+
+function getPageNum() {
+    $.ajax({
+        url: 'http://localhost/opensource/babyzone-git/api.php',
+        type: 'GET',
+        data: {page: 1},
+        dataType: 'json',
+        success: function(data) {
+            $('#Pagination').pagination(data.pageNum, {
+                current_page: 0,
+                callback: pageselectCallback
+            });
+        }
+    });
+}
+
+function pageselectCallback(pageIndex){
+    getPageData(pageIndex);
+}
+</script>
+</head>
+
+<body>
+<div style="padding:12px; ">
+<h1>jQuery Pagination分页插件demo</h1>
+<div class="btn-wrap"> 
+    <a href="javascript:" class="btn" id="J-btn">获取数据</a> 
+</div>
+<br><br><br>
+<div id="Pagination" class="pagination"></div>
+<div id="result" class="result"></div>
+</div>
+</body></html>
