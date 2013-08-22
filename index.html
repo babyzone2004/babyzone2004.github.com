@@ -8,14 +8,46 @@
 </head>
 <body>
 <div class="header">
-    <ul class="nav">
-        <li><a href="">首页</a></li>
-        <li><a href="">关于</a></li>
-    </ul>
+    <div class="container">
+        <ul id="nav" class="nav">
+            <li><a href="#index">首页</a></li><li><a href="#demo">代码库</a></li><li><a href="#about">关于</a></li>
+        </ul>     
+    </div>
 </div>
-<div class="content">
+<div id="content" class="content">
+    <div class="container">
+        <!-- 首页 begin -->
+        <div class="page" id="page-index">
+            <div class="headline">
+              <h2>用修行的心态体验生活</h2>
+              <p>只是一个FE平时积累的一些经验</p>
+            </div>
+        </div>
+        <!-- 首页 end -->
+        <!-- demo begin -->
+        <div class="page" id="page-demo">
+            <div class="headline"> 
+                <h2>代码库</h2>
+                <p>代码来源于实践</p> 
+            </div>
+        </div>
+        <!-- demo end -->
+        <!-- about begin -->
+        <div class="page" id="page-about">
 
+        </div>
+        <!-- about end -->
+    </div>
 </div>
-<div class="footer"></div>
+<div class="footer">
+    <div class="container">
+        <p>Enjoy it, just for fun!</p>
+        <p>Designed and built by babyzone2004</p>
+    </div>
+</div>
+<script src="doc/assets/js/sea.js"></script>
+<script>
+    seajs.use("./doc/assets/js/main");
+</script>
 </body>
 </html>
