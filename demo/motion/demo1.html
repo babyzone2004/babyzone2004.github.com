@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Growl</title>
+  <link href="assets/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" />
+  <link href="assets/docs.css" rel="stylesheet" type="text/css" />
+  <link href="assets/bootstrap.css" rel="stylesheet" type="text/css" />
+  <style type="text/css" media="screen">
+      .dropdown-toggle:focus{
+        outline: none;
+      }
+      body{padding: 12px;}
+
+      .open .caret {
+        -webkit-transform-origin: 50% 50%;
+        -webkit-transform: rotate(180deg);
+        transform-origin: 50% 50%;
+        transform: rotate(180deg);
+      }
+      .caret {
+        -webkit-transition: -webkit-transform 0.3s ease;
+        transition: transform 0.3s ease;
+      }
+      .dropdown-wrap .dropdown-menu{
+        display: block;
+        top: -150px;
+        position: relative;
+        -webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+      }
+      .open .dropdown-wrap  .dropdown-menu{
+        /*-webkit-transition: all 0.3s cubic-bezier(0,.93,.37,1.09);*/
+        /*-webkit-transition: all 0.3s cubic-bezier(.09,1.48,.52,1);*/
+        -webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+        top: 0;
+      }
+      .open .dropdown-wrap{
+        height: 150px;
+        padding: 0 12px 12px 12px;
+        /*-webkit-transition: all 0.3s cubic-bezier(0,.93,.37,1.09);*/
+        /*-webkit-transition: all 0.3s cubic-bezier(.09,1.48,.52,1);*/
+        -webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+      }
+      .dropdown-wrap{
+        position: absolute;
+        padding: 0 12px 0 12px;
+        top: 100%;
+        left: -12px;
+        min-width: 174px;
+        height: 0;
+        -webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+        overflow: hidden;
+       }
+  </style>
+</head>
+<body onload="prettyPrint()">
+<h2>下拉菜单动画</h2>
+<p>支持现代浏览器，IE9 以下浏览器只支持简单的出现消失效果</p>
+<div class="bs-docs-example">
+  <ul class="nav nav-pills">
+    <li class="active"><a href="#">Regular link</a></li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
+        <div class="dropdown-wrap">
+          <ul class="dropdown-menu">
+            <li><a href="http://google.com">Action</a></li>
+            <li><a href="#anotherAction">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div>
+    </li>
+  </ul>
+</div>
+<hr class="bs-docs-separator">
+<h3>HTML结构</h3>
+<p>在bootstrap结构的基础上，注明class<code>.dropdown-menu</code>的dom外面增加一个<code>dropdown-wrap</code>的div，如下例：</p>
+<pre class="prettyprint linenums  lang-html">
+&lt;ul class="nav nav-pills"&gt;<br />  &lt;li class="active"&gt;&lt;a href="#"&gt;Regular link&lt;/a&gt;&lt;/li&gt;<br />  &lt;li class="dropdown"&gt;<br />    &lt;a class="dropdown-toggle" data-toggle="dropdown" href="#"&gt;Dropdown &lt;b class="caret"&gt;&lt;/b&gt;&lt;/a&gt;<br />      &lt;div class="dropdown-wrap"&gt;<br />        &lt;ul class="dropdown-menu"&gt;<br />          &lt;li&gt;&lt;a href="http://google.com"&gt;Action&lt;/a&gt;&lt;/li&gt;<br />          &lt;li&gt;&lt;a href="#anotherAction"&gt;Another action&lt;/a&gt;&lt;/li&gt;<br />          &lt;li&gt;&lt;a href="#"&gt;Something else here&lt;/a&gt;&lt;/li&gt;<br />          &lt;li class="divider"&gt;&lt;/li&gt;<br />          &lt;li&gt;&lt;a href="#"&gt;Separated link&lt;/a&gt;&lt;/li&gt;<br />        &lt;/ul&gt;<br />      &lt;/div&gt;<br />  &lt;/li&gt;<br />&lt;/ul&gt;
+</pre>
+<h3>css</h3>
+<p>在bootstrap基础上增加如下css，如果想增加firefox等其它浏览器支持，在transition上增加前缀即可</p>
+<pre class="prettyprint linenums lang-css">
+.open .caret {
+  -webkit-transform-origin: 50% 50%;
+  -webkit-transform: rotate(180deg);
+  transform-origin: 50% 50%;
+  transform: rotate(180deg);
+}
+.caret {
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+}
+.dropdown-wrap .dropdown-menu{
+  display: block;
+  top: -150px;
+  position: relative;
+  -webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+}
+.open .dropdown-wrap  .dropdown-menu{
+  -webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+  top: 0;
+}
+.open .dropdown-wrap{
+  height: 150px;
+  padding: 0 12px 12px 12px;
+  -webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+}
+.dropdown-wrap{
+  position: absolute;
+  padding: 0 12px 0 12px;
+  top: 100%;
+  left: -12px;
+  min-width: 174px;
+  height: 0;
+  -webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+  overflow: hidden;
+ }
+</pre>
+
+<script src="assets/jquery.js"></script>
+<script src="assets/bootstrap-dropdown.js"></script>
+<script src="assets/google-code-prettify/prettify.js"></script>
+</body>
+</html>
