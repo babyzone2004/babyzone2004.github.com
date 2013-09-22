@@ -24,22 +24,27 @@
       }
       .dropdown-wrap .dropdown-menu{
         display: block;
-        top: -150px;
         position: relative;
+        float: none;
+        margin-top: -100%;
         -webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+        transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
       }
       .open .dropdown-wrap  .dropdown-menu{
         /*-webkit-transition: all 0.3s cubic-bezier(0,.93,.37,1.09);*/
         /*-webkit-transition: all 0.3s cubic-bezier(.09,1.48,.52,1);*/
         -webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+        transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
         top: 0;
+        margin-top: 0;
       }
       .open .dropdown-wrap{
-        height: 150px;
+        max-height: 1500px;
         padding: 0 12px 12px 12px;
         /*-webkit-transition: all 0.3s cubic-bezier(0,.93,.37,1.09);*/
         /*-webkit-transition: all 0.3s cubic-bezier(.09,1.48,.52,1);*/
         -webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+        transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
       }
       .dropdown-wrap{
         position: absolute;
@@ -47,10 +52,12 @@
         top: 100%;
         left: -12px;
         min-width: 174px;
-        height: 0;
+        max-height: 0;
         -webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+        transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
         overflow: hidden;
        }
+
   </style>
 </head>
 <body onload="prettyPrint()">
@@ -62,13 +69,13 @@
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
         <div class="dropdown-wrap">
-          <ul class="dropdown-menu">
-            <li><a href="http://google.com">Action</a></li>
-            <li><a href="#anotherAction">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
+            <ul class="dropdown-menu">
+              <li><a href="http://google.com">Action</a></li>
+              <li><a href="#anotherAction">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
         </div>
     </li>
   </ul>
