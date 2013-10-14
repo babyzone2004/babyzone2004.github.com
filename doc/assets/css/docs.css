@@ -132,3 +132,13 @@ a {
 @media screen and (min-width: 1080px) {
 
 }
+
+
+#page-demo .page-demo-list{
+  margin: 12px 226px 0;
+}
+..page-demo-list a:hover{
+  text-decoration: none;
+}
+  
+  
