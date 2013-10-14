@@ -89,91 +89,56 @@
 <h3>css</h3>
 <p>在bootstrap基础上增加如下css，如果想增加firefox等其它浏览器支持，在transition上增加前缀即可</p>
 <pre class="prettyprint linenums lang-css">
+.dropdown-toggle:focus{
+  outline: none;
+}
+body{padding: 12px;}
+
 .open .caret {
-  -webkit-transform-origin: 50% 50%;
-  -webkit-transform: rotate(180deg);
-  transform-origin: 50% 50%;
-  transform: rotate(180deg);
+-webkit-transform-origin: 50% 50%;
+-webkit-transform: rotate(180deg);
+transform-origin: 50% 50%;
+transform: rotate(180deg);
 }
 .caret {
-  -webkit-transition: -webkit-transform 0.3s ease;
-  transition: transform 0.3s ease;
+-webkit-transition: -webkit-transform 0.3s ease;
+transition: transform 0.3s ease;
 }
 .dropdown-wrap .dropdown-menu{
-  display: block;
-  top: -150px;
-  position: relative;
-  -webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+display: block;
+position: relative;
+float: none;
+margin-top: -100%;
+-webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
 }
 .open .dropdown-wrap  .dropdown-menu{
-  -webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
-  top: 0;
+/*-webkit-transition: all 0.3s cubic-bezier(0,.93,.37,1.09);*/
+/*-webkit-transition: all 0.3s cubic-bezier(.09,1.48,.52,1);*/
+-webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+top: 0;
+margin-top: 0;
 }
 .open .dropdown-wrap{
-  height: 150px;
-  padding: 0 12px 12px 12px;
-  -webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+max-height: 1500px;
+padding: 0 12px 12px 12px;
+/*-webkit-transition: all 0.3s cubic-bezier(0,.93,.37,1.09);*/
+/*-webkit-transition: all 0.3s cubic-bezier(.09,1.48,.52,1);*/
+-webkit-transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
+transition: all 0.3s cubic-bezier(.06,1.36,.52,1);
 }
 .dropdown-wrap{
-  position: absolute;
-  padding: 0 12px 0 12px;
-  top: 100%;
-  left: -12px;
-  min-width: 174px;
-  height: 0;
-  -webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
-  overflow: hidden;
- }
-</pre>
-<pre class="prettyprint linenums lang-css">
-  /*下拉菜单动画效果*/
-/*下拉菜单高度*/
-@height: 243px;
-/*下拉菜单阴影padding*/
-@padding: 48px;
-
-.caret {
-  -webkit-transition: -webkit-transform 0.3s ease;
-  transition: transform 0.3s ease;
+position: absolute;
+padding: 0 12px 0 12px;
+top: 100%;
+left: -12px;
+min-width: 174px;
+max-height: 0;
+-webkit-transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+transition: all 0.3s cubic-bezier(1,-0.31,.28,.68);
+overflow: hidden;
 }
-.open-dropdown-toggle .caret {
-  -webkit-transform-origin: 50% 50%;
-  -webkit-transform: rotate(180deg);
-  transform-origin: 50% 50%;
-  transform: rotate(180deg);
-}
-
-.dropdown-wrap .dropdown-menu{
-  padding-top: 31px;
-  margin-top: -18px;
-  display: block;
-  top: 0 - @height - @padding;
-  left: 0;
-  position: relative;
-  .transition(all .3s cubic-bezier(1,-0.31,.28,.68));
-}
-.open-dropdown-toggle .dropdown-wrap  .dropdown-menu{
-  .transition(all .3s cubic-bezier(.06,1.36,.52,1));
-  top: 0;
-}
-
-.dropdown-wrap{
-  position: absolute;
-  padding: 0 @padding 0 @padding;
-  top: 100%;
-  left: 0 - @padding;
-  .transition(all .3s cubic-bezier(1,-0.31,.28,.68));
-  overflow: hidden;
-  z-index: -1;
-  background: #000;
-  max-height: 0;
- }
-.open-dropdown-toggle .dropdown-wrap{
-  max-height:500px;
-  padding: 0 @padding @padding @padding;
-  .transition(all .3s cubic-bezier(.06,1.36,.52,1));
-}
-
 </pre>
 <script src="assets/jquery.js"></script>
 <script src="assets/bootstrap-dropdown.js"></script>
