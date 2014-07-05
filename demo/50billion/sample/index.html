@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>小米应用商店下载量超过50亿次</title>
+<meta charset="utf-8">
+<meta name="description" content='小米应用商店下载量超过50亿次' />
+<meta name="keywords" content="小米应用商店下载量超过50亿次" />
+<!-- build:css ../assets/css/style.min.css -->
+<link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/sprite.css">
+<!-- endbuild -->
+<script src="http://static.xiaomi.net/appstore-web/assets/js/sea.js"></script>
+<link rel="shortcut icon" href="http://www.xiaomi.com/favicon.ico">
+<script>
+seajs.config({
+  alias: {
+    "jquery": "ext/jquery-1.11.1.min"
+  }
+})
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="container-right">
+  </div>
+  <div class="banner">
+  <div id="J-accumulate" class="accumulate"></div>
+    <div class="btn-group">
+      <a href="#game">进入游戏</a>
+      <a id="goIndex" href="http://app.mi.com?index=1"></a>
+    </div>
+  </div>
+  <a href="http://weibo.com/2758590881/Bc89Sp5Rs" class="weibo-link" target="_blank">点这儿有惊喜哦</a>
+</div>
+<div id="game" class="game">
+  <div class="game-container"></div>
+  <div id="animal1" class="animal1"></div>
+  <div id="animal2" class="animal2 hide"></div>
+  <div id="playTip" class="tip-play">
+    <p class="tip-play-h">狂按空格键，连击捞出应用，共30秒时间</p>
+    <p class="tip-play-f">游戏结束分享到微博有机会赢取，红米Note、小米平板、小米电视2</p>
+  </div>
+  <div id="timerWrap" class="timer hide">还剩 <span id="timer">30</span> 秒</div>
+  <div id="score" class="score scoreResult"></div>
+  <div id="result" class="tip-result hide">
+    <p>哇哦，一共捞出<span class="scoreResult"></span>个应用哦。感谢您为50亿次下载做出的贡献啦<br>
+分享到微博有机会赢取，红米Note、小米平板、小米电视2</p>
+    <div class="tip-btn-group">
+      <a id="retry" href="javascript:;">再挑战一次</a>
+      <a href="javascript:;" id="share">分享到微博抽奖</a>
+    </div>
+  </div>
+</div>
+<!-- build:js ../assets/js/main-min.js -->
+<script src="../assets/js/main.js"></script>
+<!-- endbuild -->  
+<script>
+if(location.href.indexOf("online") != -1) {
+  seajs.use("assets/js/main");
+} else {
+  seajs.use("../assets/js/main");
+}
+
+seajs.use("jquery", function ($) {
+  // 分享新浪微博
+  $("#share").on("click", function() {
+    var shareTxt = $('#shareTxt');
+    var score = $("#score").text();
+    var title = "哇噻，刚刚从小米手机里捞出"+ score +"个应用哦。我为@小米应用商店 下载突破50亿次做出贡献啦！感恩回馈米粉#50亿次点击#，参与游戏并分享到微博，抽取红米Note和小米平板！我很厉害吧，你也来比比！";
+    var rLink = site = location.href;
+    var pic = 'http://resource.xiaomi.net/miuimarket/app/hd/5billion/weibo.jpg';
+    window.open('http://service.weibo.com/share/share.php?appkey='+encodeURIComponent(2443125526)+'&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(rLink)+'&pic='+encodeURIComponent(pic),'_blank','scrollbars=no,width=600,height=450,status=no,resizable=yes');
+  })
+});
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?ffc0ee273455801427fa9fbf1a014811";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>
