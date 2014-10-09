@@ -1,0 +1,1 @@
+alert("js load sucess!");
