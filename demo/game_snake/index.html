@@ -277,6 +277,7 @@ p{ margin: 0;}
    tailCorners, //按下转向键后，记录坐标
    tailDirect = "", //尾巴的方向
    appIcon,
+   willDirectkey, //最新按下的方向键
    directkey; // 方向键值 37-40 左上右下
    $(function() {
      document.onkeydown = attachEvents; //绑定方向事件
@@ -305,7 +306,8 @@ p{ margin: 0;}
  function start() {
    len = 4;
    speed = 10;
-   directkey = 39;
+   willDirectkey = 39;
+   directkey = willDirectkey;
    tailDirect = "cover tail-1-right";
    appIcon = [
   "http://file.market.xiaomi.com/thumbnail/PNG/l50/AppStore/2bc8e8e7-0e95-461f-9990-ac4bfd1c7467",
@@ -489,7 +491,7 @@ p{ margin: 0;}
  //添加键盘事件
  function attachEvents(e) {
    e = e || event;
-   directkey = Math.abs(e.keyCode - directkey) != 2 && e.keyCode > 36 && e.keyCode < 41 ? e.keyCode : directkey; //非方向键、反向无效
+   willDirectkey = Math.abs(e.keyCode - directkey) != 2 && e.keyCode > 36 && e.keyCode < 41 ? e.keyCode : directkey; //非方向键、反向无效
    return false;
  }
  function walk() {
@@ -497,6 +499,7 @@ p{ margin: 0;}
    snakeTimer = window.setInterval(step, Math.floor(3000/speed));
  }
  function step() {
+   directkey = willDirectkey;
    var tailCorner = {
      "coord": snake[0][0] + "" + snake[0][1],
      "directkey": directkey
