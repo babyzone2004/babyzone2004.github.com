@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xml:lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="description" content="" />
+<meta name="keywords" content=""/>
+<title>小米应用商店</title>
+<link rel="shortcut icon" href="http://www.xiaomi.com/favicon.ico" />
+<style type="text/css">
+body{ background: url(./bg.png) center 0 #e31848 no-repeat; font-family: "Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif}
+p{ margin: 0;}
+.accumulate{
+  width: 978px;
+  margin: 211px auto 0;
+}
+.accumulate span{
+  display: inline-block;
+  height: 167px;
+  background-image: url(./number.png) ;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+}
+.accumulate-dot{ background-position: -823px 0;width: 32px;}
+.accumelate-num-1{ background-position: 0px 0;width: 55px;}
+.accumelate-num-2{ background-position: -158px 0; width: 76px;}
+.accumelate-num-3{ background-position: -232px 0; width: 75px;}
+.accumelate-num-4{ background-position: -307px 0; width: 80px;}
+.accumelate-num-5{ background-position: -396px 0; width: 77px;}
+.accumelate-num-6{ background-position: -471px 0; width: 75px;}
+.accumelate-num-7{ background-position: -546px 0; width: 78px;}
+.accumelate-num-8{ background-position: -634px 0; width: 77px;}
+.accumelate-num-9{ background-position: -710px 0; width: 76px;}
+.accumelate-num-0{ background-position: -69px 0; width: 76px;}
+ 
+.stage{
+  overflow: hidden;
+  position: relative;
+  width: 1006px;
+  height: 912px;
+  margin: 63px auto 0;
+  background: url(stage.png) 0 0 no-repeat;
+  border-radius: 15px;
+ }
+ 
+ .adward-title{ text-align: center; margin: 32px 0 56px 0; }
+ .adward-title h1{ font-size: 48px; font-weight: normal; color: #fff; line-height: 1.2; margin: 12px 0 12px 0; }
+ .adward-title p{ font-size: 18px; color: #f18ca4; margin: 6px 0  0}
+ .adward-wrap{ width: 1000px; margin: 0 auto 100px; overflow: auto;}
+ .adward{ width: 235px; border: 1px solid #ac193c; border-radius: 7px; border-top: 4px solid #9c1737; background: #ac193c; text-align: center; color: #fff; padding: 12px 0 38px; float: left; margin-right: 17px;}
+ .adward h2{ margin: 3px 0; font-weight: normal; display: inline-block; *display: *inline; zoom: 1; border: 1px solid #cd244c;padding: 5px 27px;
+ border-radius: 23px; }
+ .adward img{margin: 0 auto;}
+ .adward p{ color: #ff6a52; font-size: 21px; margin: 0;}
+ .thumb{
+   display: table-cell;
+   height: 200px;
+   width: 236px;
+   vertical-align: middle;
+ }
+ .stage-begin{
+   position: relative;
+   width: 1006px;
+   height: 912px;
+   background: url(stage-begin.png) center 176px no-repeat;
+ }
+ .btn{width:359px; height:136px; border: none; background: url(btn-start.png) 0 0 no-repeat; position: absolute; bottom: 208px; left: 50%; margin-left: -180px; outline: none; cursor: pointer;}
+ .hide{ display: none; }
+ .stage-ready{
+   width: 1006px;
+   height: 912px;
+   background: url(ready.png) center 176px no-repeat;
+ }
+ .stage-go{
+  width: 1006px;
+  height: 912px;
+   background: url(go.png) center 176px no-repeat;
+ }
+ .stage-share{
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.55);
+   padding-top: 140px;
+   left: 0;
+   top: 0;
+ }
+ .share{
+   position: relative;
+   width: 540px;
+   height: 664px;
+   border-radius: 18px;
+   margin: 0 auto 0;
+   background: url(share-bg2.png) #b1193d center 170px no-repeat;
+ }
+ .share-h{ height: 115px; background: url(share-bg1.png) #951332 center center no-repeat; }
+ .close{
+   width: 62px;
+   height: 62px;
+   position: absolute;
+   right: -20px;
+   top: -20px;
+   background: url(close.png) 0 0 no-repeat;
+ }
+ .share-desc{
+   text-align: center;
+   font-size: 16px;
+   color: #fff;
+   background: #8d122f;
+   width: 377px;
+   padding: 8px 0;
+   margin: 151px auto 61px;
+   border-radius: 18px;
+ }
+ .btn-share, .btn-replay{
+   cursor: pointer;
+   display: block;
+   width: 216px;
+   height: 81px;
+   border: none;
+   outline: none;
+   margin: 0 auto;
+   margin-bottom: 10px;
+ }
+ .btn-share{
+   background: url(btn-share.png) 0 0 no-repeat;
+ }
+ .btn-replay{
+   background: url(btn-replay.png) 0 0 no-repeat;
+ }
+ .share-link{
+   margin-top: 58px;
+   text-align: center;
+ }
+ .share-link a{
+   color: #fff;
+ }
+ 
+ 
+ table { overflow:hidden; border-collapse:collapse; }
+ td {width:48px; height:48px; border:none; background:#2a000a; }
+ td img{vertical-align: middle;}
+ .cover {background: url(snake.png) #78b639 500px 500px no-repeat;}
+ .header-up{ background-color:#2a000a;  background-position: 0 0 ;}
+ .header-right{ background-color:#2a000a; background-position: -64px 0px ;}
+ .header-down{ background-color:#2a000a; background-position: -64px -64px ;}
+ .header-left{ background-color:#2a000a; background-position: 0 -64px ;}
+ .tail-3{ background-color:#2a000a; background-position: -192px 0 ;}
+ .tail-2{ background-color:#2a000a; background-position: -128px -64px;}
+ .tail-1-up{ background-color:#2a000a; background-position: -126px -121px ;}
+ .tail-1-right{ background-color:#2a000a; background-position: -126px 0 ;}
+ .tail-1-down{ background-color:#2a000a; background-position: 0 -121px ;}
+ .tail-1-left{ background-color:#2a000a; background-position: -64px -121px ;}
+ 
+ .audio{position: absolute;
+left: 50%;
+top: 419px;
+right: 13px;
+display: inline-block;
+width: 13px;
+height: 14px;
+background: url(sound.gif) 0 0;
+margin-left: 484px;}
+ </style>
+ </head>
+ <body>
+ <div id="J-accumulate" class="accumulate"></div>
+<a href="javascript:;" class="audio" id="audio"></a>
+ <div class="stage">
+   <div class="stage-begin" id="stageBegin">
+     <button type="button" class="btn" id="btnStart"></button>
+   </div>
+   <div class="stage-ready hide" id="stageReady"></div>
+   <div class="stage-go hide" id="stageGo"></div>
+   <div class="stage-game" id="stageGame">
+     <div id="snakeWrap"></div>
+   </div>
+   <div class="stage-share hide" id="stageShare">
+     <div class="share">
+       <div class="share-h"></div>
+       <p class="share-desc">您当前共计吃了<span id="score"></span>个应用，超过了全球<span id="rank"></span>的人</p>
+       <button class="btn-share" id="share"></button>
+       <button class="btn-replay" id="btnReplay"></button>
+       <div class="share-link">
+         <a href="#">点击这里下载你吃过的应用有惊喜哦~</a>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="adward-title">
+   <h1>游戏奖品</h1>
+   <p>狂送100台小米手机4、5000万元礼券，分享微博赢小米电视</p>
+ </div>
+ 
+ <div class="adward-wrap">
+   <div class="adward">
+     <div class="thumb">
+       <img src="tv.png" alt="小米电视2" width="width: 211;">
+     </div>
+     <h2>小米电视</h2>
+     <p>×</p>
+     <p>100台</p>
+   </div>
+   <div class="adward">
+     <div class="thumb">
+       <img src="mi4.png" alt="小米电视2">
+     </div>
+     <h2>小米电视</h2>
+     <p>×</p>
+     <p>100台</p>
+   </div>
+   <div class="adward">
+     <div class="thumb">
+       <img src="route.png" alt="小米电视2">
+     </div>
+     <h2>小米电视</h2>
+     <p>×</p>
+     <p>100台</p>
+   </div>
+   <div class="adward" style="margin-right: 0;">
+     <div class="thumb">
+       <img src="battery.png" alt="小米电视2">
+     </div>
+     <h2>小米电视</h2>
+     <p>×</p>
+     <p>100台</p>
+   </div>
+ </div>
+ <script src="http://resource.xiaomi.net/lib/jquery/1.8.3/jquery.min.js"></script>
+ <script>
+ // common 
+ function id(str) {
+   return document.getElementById(str);
+ }
+ function tag(str,target) {
+   target = target || document;
+   return target.getElementsByTagName(str);
+ }
+ var eatSound = new Audio();
+ eatSound.src = "eat.mp3";
+ var bgMusic = new Audio();
+ 
+ // global
+ var WIDTH = 20, //网格宽度
+   HEIGHT = 18, //网格高度
+   len, //蛇的长度
+   speed, //爬行速度
+   gridElems = multiArray(WIDTH,HEIGHT), //单元格对象
+   carrier, //承载对象(食物，障碍，滑板，刹车)
+   snake, //蛇每节的坐标点
+   snakeTimer, //蛇行走计时器
+   tailCorners, //按下转向键后，记录坐标
+   tailDirect = "", //尾巴的方向
+   appIcon,
+   directkey; // 方向键值 37-40 左上右下
+   $(function() {
+     document.onkeydown = attachEvents; //绑定方向事件
+     $("#btnStart").on("click", function() {
+       $("#stageBegin").fadeOut(500, function() {
+         $("#stageReady").fadeIn(500, function() {
+           $(this).fadeOut(500, function() {
+             $("#stageGo").fadeIn(800, function() {
+               $(this).fadeOut(500, function() {
+                 initGrid(); //网格初始化
+                 start(); //游戏开始
+                 $("#stageGame").fadeIn(500, function() {})
+               });
+             });
+           });
+         });
+       });
+     });
+   });
+ //开始游戏
+ function start() {
+   len = 4;
+   speed = 10;
+   directkey = 39;
+   tailDirect = "cover tail-1-right";
+   appIcon = [
+     "http://file.market.xiaomi.com/thumbnail/PNG/l50/AppStore/bcb99571-36db-4f87-b7e5-12cdbaa95766/1.png",
+     "http://file.market.xiaomi.com/thumbnail/PNG/l50/AppStore/ac3e0a4f-118d-487f-8d26-046b2d49d102/1.png",
+     "http://file.market.xiaomi.com/thumbnail/PNG/l50/AppStore/09ca591f-b3ce-4345-9c2a-bde8c5a3f330/1.png",
+     "http://file.market.xiaomi.com/thumbnail/PNG/l50/AppStore/c94ce38a-7d7d-4b88-b255-a33a62c5b4b3/1.png",
+     "http://file.market.xiaomi.com/thumbnail/PNG/l50/AppStore/e2be595f-9eb5-4303-884e-2a47b712de2c/1.png"
+   ]
+   tailCorners = [];
+   carrier = multiArray(WIDTH,HEIGHT);
+   snake = new Array();
+   clear();
+   initSnake(); //蛇初始化
+   addObject("food");
+   walk();
+   bgMusic.src = "bg.WAV";
+   bgMusic.loop = true;
+   bgMusic.play();
+ }
+ //创建网格
+ function initGrid() {
+   var body = tag("body")[0];
+   var table = document.createElement("table"),
+     tbody = document.createElement("tbody");
+   for(var j = 0; j < HEIGHT; j++) {  
+     var col = document.createElement("tr");  
+     for(var i = 0; i < WIDTH; i++) {  
+       var row = document.createElement("td");
+       gridElems[i][j] = col.appendChild(row);  
+     }
+     tbody.appendChild(col);  
+   }
+   table.appendChild(tbody);
+   id("snakeWrap").appendChild(table);
+ }
+ //创建蛇
+ function initSnake() {
+   var pointer = randomPointer(len-1, len-1, WIDTH/2);
+   for(var i = 0; i < len; i++) {
+     var x = pointer[0] - i,
+       y = pointer[1];
+     snake.push([x,y]);
+     carrier[x][y] = "cover";
+   }
+ }
+ //添加键盘事件
+ function attachEvents(e) {
+   e = e || event;
+   directkey = Math.abs(e.keyCode - directkey) != 2 && e.keyCode > 36 && e.keyCode < 41 ? e.keyCode : directkey; //非方向键、反向无效
+   return false;
+ }
+ function walk() {
+   if(snakeTimer) window.clearInterval(snakeTimer);
+   snakeTimer = window.setInterval(step, Math.floor(3000/speed));
+ }
+ function step() {
+   var tailCorner = {
+     "coord": snake[0][0] + "" + snake[0][1],
+     "directkey": directkey
+   };
+   tailCorners.push(tailCorner);
+   //获取目标点
+   var headX = snake[0][0],
+     headY = snake[0][1];
+   switch(directkey) {
+     case 37: headX -= 1; break;
+     case 38: headY -= 1; break;
+     case 39: headX += 1; break
+     case 40: headY += 1; break;
+   }
+   //碰到边界，阻挡物，则结束游戏
+   if(headX >= WIDTH || headX < 0 || headY >= HEIGHT || headY < 0 || carrier[headX][headY] == "block" || carrier[headX][headY] == "cover" ) {
+     window.clearInterval(snakeTimer);
+     var scoreResult = len - 4;
+     var rankResult = "0%";
+     $("#score").text(scoreResult);
+     switch(true) {
+       case scoreResult < 5:
+       rankResult = "5%";
+       break;
+       case 5 <= scoreResult < 20:
+       rankResult = "20%";
+       break;
+       case 20 <= scoreResult < 30:
+       rankResult = "60%";
+       break;
+       case 30 <= scoreResult < 50:
+       rankResult = "99%";
+       break;
+       default:
+       break;
+     }
+     $("#rank").text(rankResult);
+     $("#stageShare").fadeIn(500);
+     bgMusic.pause();
+     return;
+   }
+   //加速
+   if(len % 4 == 0 && speed < 60 && carrier[headX][headY] == "food") {
+     speed += 5;
+     walk(); 
+   }
+   //吃东西
+   if(carrier[headX][headY] != "food") {
+     var lastX = snake[snake.length-1][0],
+       lastY = snake[snake.length-1][1];
+     carrier[lastX][lastY] = false;
+     gridElems[lastX][lastY].className = "";
+     snake.pop();
+   } else {
+     carrier[headX][headY] = false;
+     gridElems[headX][headY].innerHTML = "";
+     eatSound.play();
+     addObject("food");
+   }
+   snake.unshift([headX,headY]);
+   carrier[headX][headY] = "cover";
+   
+   for(var i = 0, ii = snake.length; i < ii; i++) {
+     var x = snake[i][0];
+     var y = snake[i][1];
+     gridElems[x][y].className = "cover";
+     if(i == 0) {
+       switch(directkey) {
+         case 37: gridElems[x][y].className = "cover header-left"; break;
+         case 38: gridElems[x][y].className = "cover header-up"; break;
+         case 39: gridElems[x][y].className = "cover header-right"; break
+         case 40: gridElems[x][y].className = "cover header-down"; break;
+       }
+     }
+ 
+     if(i == ii - 3) {
+       gridElems[x][y].className = "cover tail-3";
+     }
+     if(i == ii - 2) {
+       gridElems[x][y].className = "cover tail-2";
+     }
+     if(i == ii - 1) {
+       if(tailCorners.length > 0 && x + "" + y == tailCorners[0].coord) {
+         switch(tailCorners[0].directkey) {
+           case 37: tailDirect = "cover tail-1-left"; break;
+           case 38: tailDirect = "cover tail-1-up"; break;
+           case 39: tailDirect = "cover tail-1-right"; break
+           case 40: tailDirect = "cover tail-1-down"; break;
+         }
+         tailCorners.shift();
+       }
+       gridElems[x][y].className = tailDirect;
+     }
+   }
+   len = snake.length;
+ }
+ //添加物品
+ function addObject(name) {
+   var p = randomPointer();
+   carrier[p[0]][p[1]] = name;
+   gridElems[p[0]][p[1]].className = name;
+   var $img = $("<img width='48' style='display:none' heigth='48' src=" + appIcon.shift() +">");
+   $(gridElems[p[0]][p[1]]).append($img);
+   $img.fadeIn(500);
+ }
+ //创建二维数组
+ function multiArray(m,n) {
+   var arr =  new Array(m);
+   for(var i=0, ii = arr.length; i < ii; i++) 
+     arr[i] = new Array(n);
+   return arr;
+ }
+ //清除画面
+ function clear() {
+   for(var x = 0; x < gridElems.length; x++) {
+     for(var y = 0; y < gridElems[x].length; y++) {
+       gridElems[x][y].className = "";
+       gridElems[x][y].innerHTML = "";
+     }
+   }
+ }
+ //产生指定范围随机点
+ function randomPointer(startX,startY,endX,endY) {
+   startX = startX || 0;
+   startY = startY || 0;
+   endX = endX || WIDTH;
+   endY = endY || HEIGHT;
+   var p = [],
+     x = Math.floor(Math.random()*(endX - startX)) + startX,
+     y = Math.floor(Math.random()*(endY - startY)) + startY;
+   if(carrier[x][y]) return randomPointer(startX,startY,endX,endY);
+   p[0] = x;
+   p[1] = y;
+   return p;
+ }
+ 
+ $("#btnReplay").on("click", function() {
+   $("#stageShare").fadeOut(500);
+   start();
+ });
+ </script>
+ 
+ <script>
+ /**
+ * @param {JQuery} $container 包含数字的容器
+ * @param {int} num 要展示的数字
+ */
+ var accumelate = function($container, num) {
+   var nums = num.toString().split("").reverse();
+   $container.empty();
+   for (var i = 0, ii = nums.length; i < ii; i++) {
+       var singleNum = nums[i];
+       if (i != 0 && i % 3 === 0) {
+           $container.prepend("<span class='accumulate-dot'>,</span>");
+       }
+       $container.prepend("<span class=accumelate-num-" + singleNum + ">" + singleNum + "</span>");
+   };
+ }
+ accumelate($("#J-accumulate"), 12356549806);
+ var getAccumulate = function() {
+  $.ajax({
+    type: "GET",
+    dataType: 'jsonp',
+    url: 'http://rommgr.miui.com/api.php',
+    cache: false,
+    jsonp: "callback",
+    jsonpCallback: "updateAccumulate",
+    success: function(msg) {
+      accumulate($("#J-accumulate"), msg.downCount);
+    }
+  })
+ };
+ // 分享新浪微博
+ $("#share").on("click", function() {
+   var score = $("#score").text();
+   var title = "哇噻，刚刚从小米手机里捞出" + score + "个应用哦。我为@小米应用商店 下载突破50亿次做出贡献啦！感恩回馈米粉#50亿次点击#，参与游戏并分享到微博，抽取红米Note和小米平板！我很厉害吧，你也来比比！";
+   var rLink = location.href;
+   var pic = 'http://resource.xiaomi.net/miuimarket/app/hd/5billion/weibo.jpg';
+   window.open('http://service.weibo.com/share/share.php?appkey='+encodeURIComponent(2443125526)+'&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(rLink)+'&pic='+encodeURIComponent(pic),'_blank','scrollbars=no,width=600,height=450,status=no,resizable=yes');
+ })
+ </script>
+ <script>
+ $("#audio").on("click", function() {
+   if(bgMusic.paused) {
+     bgMusic.play();
+   } else {
+     bgMusic.pause();
+   }
+ })
+ </script>
+ </body>
+ </html>
