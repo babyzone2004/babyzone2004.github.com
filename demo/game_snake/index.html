@@ -165,14 +165,24 @@ p{ margin: 0;}
  .tail-1-left{ background-color:#2a000a; background-position: -64px -121px ;}
  
  .audio{position: absolute;
-left: 50%;
-top: 419px;
-right: 13px;
-display: inline-block;
-width: 13px;
-height: 14px;
-background: url(sound.gif) 0 0;
-margin-left: 484px;}
+  left: 50%;
+  top: 419px;
+  right: 13px;
+  display: inline-block;
+  width: 13px;
+  height: 14px;
+  background: url(sound.gif) 0 0;
+  margin-left: 484px;
+}
+.stage-comfirm{
+  width: 100%;
+  height: 100%;
+  background: url(stage-tip.png) center 20px no-repeat;
+}
+.btn-confirm{
+  bottom: 28px;
+  background: url(btn-confirm.png) 0 0 no-repeat;
+}
  </style>
  </head>
  <body>
@@ -180,7 +190,10 @@ margin-left: 484px;}
 <a href="javascript:;" class="audio" id="audio"></a>
  <div class="stage">
    <div class="stage-begin" id="stageBegin">
-     <button type="button" class="btn" id="btnStart"></button>
+    <button type="button" class="btn" id="btnStart"></button>
+   </div>
+   <div class="stage-comfirm hide" id="stageComfirm">
+    <button type="button" class="btn btn-confirm" id="btnConfirm"></button>
    </div>
    <div class="stage-ready hide" id="stageReady"></div>
    <div class="stage-go hide" id="stageGo"></div>
@@ -268,19 +281,24 @@ margin-left: 484px;}
    $(function() {
      document.onkeydown = attachEvents; //绑定方向事件
      $("#btnStart").on("click", function() {
-       $("#stageBegin").fadeOut(500, function() {
-         $("#stageReady").fadeIn(500, function() {
-           $(this).fadeOut(500, function() {
-             $("#stageGo").fadeIn(800, function() {
-               $(this).fadeOut(500, function() {
-                 initGrid(); //网格初始化
-                 start(); //游戏开始
-                 $("#stageGame").fadeIn(500, function() {})
+      $("#stageBegin").fadeOut(500, function() {
+        $("#stageComfirm").fadeIn(500);
+      });
+     });
+     $("#btnConfirm").on("click", function() {
+         $("#stageComfirm").fadeOut(500, function() {
+           $("#stageReady").fadeIn(500, function() {
+             $(this).fadeOut(500, function() {
+               $("#stageGo").fadeIn(800, function() {
+                 $(this).fadeOut(500, function() {
+                   initGrid(); //网格初始化
+                   start(); //游戏开始
+                   $("#stageGame").fadeIn(500, function() {})
+                 });
                });
              });
            });
          });
-       });
      });
    });
  //开始游戏
