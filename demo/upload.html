@@ -54,6 +54,7 @@ function handleStart(evt) {
     ctx.arc(touches[i].pageX, touches[i].pageY, 3, 0,2*Math.PI, false);  // a circle at the start
     ctx.fillStyle = color;
     ctx.fill();
+    console.log("start",touches[i].pageX, touches[i].pageY);
     log("touchstart:"+i+".");
   }
 }
@@ -79,7 +80,7 @@ console.log("handleMove:", touches);
       ctx.lineWidth = 3;
       ctx.strokeStyle = color;
       ctx.stroke();
-
+console.log("move",touches[i].pageX, touches[i].pageY);
       ongoingTouches.splice(idx, 1, copyTouch(touches[i]));  // swap in the new touch record
       log(".");
     } else {
