@@ -106,7 +106,7 @@ function handleEnd(evt) {
       ctx.beginPath();
       ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
       ctx.lineTo(touches[i].pageX, touches[i].pageY);
-      ctx.fillRect(touches[i].pageX-4, touches[i].pageY-4, 8, 8);  // and a square at the end
+      ctx.fillRect(touches[i].pageX-4, touches[i].pageY-4, 1, 1);  // and a square at the end
       ongoingTouches.splice(idx, 1);  // remove it; we're done
     } else {
       log("can't figure out which touch to end");
