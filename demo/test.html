@@ -118,14 +118,14 @@
 
         var runReact = document.getElementById("run-react");
         runReact.addEventListener("click", function() {
-            var data = _buildData(),
-                date = new Date();
+            var data = _buildData();
+            console.time('react:');
 
             React.render(new Class({
                 data: data,
                 selected: null
             }), document.getElementById("react"));
-            runReact.innerHTML = (new Date() - date) + " ms";
+            console.timeEnd('react:');
         });
     }
 
@@ -134,8 +134,8 @@
             template = document.getElementById("raw-template").innerHTML;
         document.getElementById("run-raw").addEventListener("click", function() {
         container.innerHTML = '';
-            var data = _buildData(),
-                date = new Date(),
+            var data = _buildData();
+            console.time('raw:');
                 html = "";
 
             for (var i = 0; i < data.length; i++) {
@@ -167,7 +167,7 @@
                     this.className = "selected";
                 });
 
-            document.getElementById("run-raw").innerHTML = (new Date() - date) + " ms";
+            console.timeEnd('raw:');
         });
     }
 
