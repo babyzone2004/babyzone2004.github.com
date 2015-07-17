@@ -1,20 +1,218 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="test">
+
 <head>
-<title>小米应用商店下载量超过50亿次</title>
-<meta charset="utf-8">
-<meta name="description" content='小米应用商店下载量超过50亿次' />
-<meta name="keywords" content="小米应用商店下载量超过50亿次" />
-<script src="//babyzone2004.github.io/demo/test.js"></script>
-<link rel="stylesheet" href="//babyzone2004.github.io/demo/test.css">
-<link rel="shortcut icon" href="http://www.xiaomi.com/favicon.ico">
+    <title>Performance Comparison for Knockout, Angular and React</title>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        padding: 30px 0;
+    }
+    
+    h2 {
+        margin: 0;
+        margin-bottom: 25px;
+    }
+    
+    h3 {
+        margin: 0;
+        padding: 0;
+        margin-bottom: 12px;
+    }
+    
+    .test-data {
+        margin-bottom: 3px;
+    }
+    
+    .test-data span {
+        padding: 3px 10px;
+        background: #EEE;
+        width: 100%;
+        float: left;
+        cursor: pointer;
+    }
+    
+    .test-data span:hover {
+        background: #DDD;
+    }
+    
+    .test-data span.selected {
+        background: #3F7AD9;
+        color: white;
+    }
+    
+    .time {
+        font-weight: bold;
+        height: 26px;
+        line-height: 26px;
+        vertical-align: middle;
+        display: inline-block;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    </style>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/react/0.12.1/react.js"></script>
+    <script type="text/javascript">
+    console.timeEnd("build");
+
+    document.addEventListener("DOMContentLoaded", function() {
+        _react();
+        _raw();
+    });
+
+
+    var build_count = 0;
+
+    function _buildData(count) {
+        count = count || 1000;
+
+        var adjectives = ["pretty", "large", "big", "small", "tall", "short", "long", "handsome", "plain", "quaint", "clean", "elegant", "easy", "angry", "crazy", "helpful", "mushy", "odd", "unsightly", "adorable", "important", "inexpensive", "cheap", "expensive", "fancy"];
+        var colours = ["red", "yellow", "blue", "green", "pink", "brown", "purple", "brown", "white", "black", "orange"];
+        var nouns = ["table", "chair", "house", "bbq", "desk", "car", "pony", "cookie", "sandwich", "burger", "pizza", "mouse", "keyboard"];
+        var data = [];
+        for (var i = 0; i < count; i++)
+            data.push({
+                id: i + 1,
+                label: adjectives[_random(adjectives.length)] + " " + colours[_random(colours.length)] + " " + nouns[_random(nouns.length)] + build_count
+            });
+
+        build_count++;
+        return data;
+    }
+
+    function _random(max) {
+        return Math.round(Math.random() * 1000) % max;
+    }
+
+    function _react() {
+        var Class = React.createClass({
+            select: function(data) {
+                this.props.selected = data.id;
+                this.forceUpdate();
+            },
+
+            render: function() {
+                var items = [];
+                for (var i = 0; i < this.props.data.length; i++) {
+                    items.push(React.createElement("div", {
+                            className: "row"
+                        },
+                        React.createElement("div", {
+                                className: "col-md-12 test-data"
+                            },
+                            React.createElement("span", {
+                                className: this.props.selected === this.props.data[i].id ? "selected" : ""
+                            }, this.props.data[i].label)
+                        )
+                    ));
+                }
+
+                return React.createElement("div", null, items);
+            }
+        });
+
+        var runReact = document.getElementById("run-react");
+        runReact.addEventListener("click", function() {
+            var data = _buildData(),
+                date = new Date();
+
+            React.render(new Class({
+                data: data,
+                selected: null
+            }), document.getElementById("react"));
+            runReact.innerHTML = (new Date() - date) + " ms";
+        });
+    }
+
+    function _raw() {
+        var container = document.getElementById("raw"),
+            template = document.getElementById("raw-template").innerHTML;
+        document.getElementById("run-raw").addEventListener("click", function() {
+        container.innerHTML = '';
+            var data = _buildData(),
+                date = new Date(),
+                html = "";
+
+            for (var i = 0; i < data.length; i++) {
+                var render = template;
+                render = render.replace("{{className}}", "");
+                render = render.replace("{{label}}", data[i].label);
+                html += render;
+                if (!(i % 50)) {
+                    var tplDom = document.createElement('div');
+                    tplDom.innerHTML = html;
+                    container.appendChild(tplDom);
+                    html = '';
+                }
+            }
+
+            if (html != '') {
+                var tplDom = document.createElement('div');
+                tplDom.innerHTML = html;
+                container.appendChild(tplDom);
+            }
+
+            var spans = container.querySelectorAll(".test-data span");
+            for (var i = 0; i < spans.length; i++)
+                spans[i].addEventListener("click", function() {
+                    var selected = container.querySelector(".selected");
+                    if (selected)
+                        selected.className = "";
+
+                    this.className = "selected";
+                });
+
+            document.getElementById("run-raw").innerHTML = (new Date() - date) + " ms";
+        });
+    }
+
+    ko.observableArray.fn.reset = function(values) {
+        var array = this();
+        this.valueWillMutate();
+        ko.utils.arrayPushAll(array, values);
+        this.valueHasMutated();
+    };
+    </script>
 </head>
-<body>
-<img src="http://file.market.xiaomi.com/download/AppStore/cdd2ea16-a064-490c-8b82-a6954fcfa6f2" alt="假日如梭" width="750" height="220">
-<div class="show">css加载成功后字号是32px</div>
-<a href="intent:#Intent;component=com.android.calendar/com.android.calendar.LaunchActivity;end">intend</a>
-<a href="intent:#Intent;component=com.xiaomi.shop/com.xiaomi.shop.activity.MainActivity;S.com.xiaomi.shop.extra_closed_url=http://server/acttack.html;end" >dange</a>
-<a href="market://details?id=com.tencent.mobileqq">people</a>
-  
+
+<body ng-controller="controller">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Performance Comparison for React, Angular and Knockout</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-7">
+                    <h3>React</h3>
+                </div>
+                <div class="col-md-5 text-right time" id="run-react">Run</div>
+            </div>
+            <div id="react"></div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-7">
+                    <h3>Raw</h3>
+                </div>
+                <div class="col-md-5 text-right time" id="run-raw">Run</div>
+            </div>
+            <div id="raw"></div>
+        </div>
+    </div>
+    <script type="text/html" id="raw-template">
+        <div class="row">
+            <div class="col-md-12 test-data">
+                <span class="{{className}}">{{label}}</span>
+            </div>
+        </div>
+    </script>
 </body>
+
 </html>
