@@ -1,69 +1,39 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title></title>
-	<link href="doc/css/home.css" rel="stylesheet" type="text/css" />
-	<link href="doc/css/bUI.css" rel="stylesheet" type="text/css" />
-	<link href="doc/assets/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" />
-</head>
-<body onload="prettyPrint()">
-<br />
-<div class="btn-wrap"> 
-	<a href="javascript:" class="btn" id="J-btn">提交</a> 
-	<a href="javascript:" class="btn btn-gray">取消</a> 
-</div>
- 
-<div class="dropdown-wrap">
-	<a href="javascript:"  data-toggle="dropdown"  class="btn">下拉 <b class="caret"></b></a> 
-	<ul class="dropdown-menu">
-	  <li><a href="#">Action</a></li>
-	  <li><a href="#">Another action</a></li>
-	  <li><a class="active" href="#">Something else here</a></li>
-	  <li><a href="#">Separated link</a></li>
-	</ul>
-</div> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=No">
+  <title>Carosel</title>
+  <link rel="stylesheet" type="text/css" href="demo/module/carousel/carousel.css">
 
-<pre class="prettyprint linenums" style="margin-bottom: 9px;">&lt;div class="button"&gt; <br />	&lt;a href="javascript:" class="btn"&gt;提交 &lt;b class="caret"&gt;&lt;/b&gt;&lt;/a&gt; <br />	&lt;a href="javascript:" class="btn btn-gray"&gt;取消&lt;/a&gt;<br />&lt;/div&gt;</pre>
 
-<pre class="prettyprint linenums" style="margin-bottom: 9px;">&lt;!-- 推送成功 --&gt;<br />&lt;div class="modal" id="dialog-sucessful" style="display:none;"&gt;<br />	&lt;div class="modal-header"&gt;<br />		&lt;h3 class="dialog-title"&gt;推送成功&lt;/h3&gt;<br />	&lt;/div&gt;<br />	&lt;div class="modal-body"&gt;<br />		&lt;p&gt;已经将“新浪微博”推送到您的手机请在手机上完成安装&lt;/p&gt;<br />	&lt;/div&gt;<br />	&lt;div class="modal-footer"&gt;<br />		&lt;a href="#" class="btn" id="J-autoclose" data-dismiss="modal"&gt;知道了&lt;/a&gt;<br />	&lt;/div&gt;<br />&lt;/div&gt;</pre>
+  <body>
+    <div class="carousel">
+      <div id="J_carouselWrap" class="carousel-wrap">
+        <div id="J_carouselCon" class="carousel-con">
+          <div class="J_slide carousel-item" data-tab-title="1">
+            <img src="http://file.market.xiaomi.com/thumbnail/jpeg/l300/AppStore/0b5a15e1adc466b68744bb683fb12b1f8194064a5">
+          </div>
+          <div class="J_slide carousel-item" data-tab-title="2">
+            <img src="http://file.market.xiaomi.com/thumbnail/jpeg/l300/AppStore/0b5a15e1a8c463b68b44b56837b12d1f8794064a5">
+          </div>
+          <div class="J_slide carousel-item" data-tab-title="3">
+            <img src="http://file.market.xiaomi.com/thumbnail/jpeg/l300/AppStore/0b5a15e1a8c463b68b44b56837b12d1f8794064a5">
+          </div>
+        </div>
+      </div>
+      <div id="J_carouselControl" class="carousel-control"></div>
+    </div>
+    <script src="demo/lib/zepto.js"></script>
+    <script src="demo/lib/mod.js"></script>
+    <script type="text/javascript" src="demo/module/carousel/carousel.js"></script>
+<script type="text/javascript" src="demo/main.js"></script>
 
-<pre class="prettyprint linenums lang-js" style="margin-bottom: 9px;">//modal方法<br />$("#dialog-sucessful").modal({<br />hasClose : false, //右上角是否显示关闭按钮<br />autoCloseTime : 5, //按钮处是否设置自动关闭事件<br />backdrop : false, //默认"static"，即不可通过点击背景关闭dialog，false表示不需要背景<br />});<br />//当然你也可以直接通过字符串操作dialog：<br />$('#myModal').modal('toggle')  <br />$('#myModal').modal('show')<br />$('#myModal').modal('hide')</pre>
+    
+    <script>
+    require('main.js');
+    </script>
+  </body>
 
-<pre class="prettyprint linenums lang-js" style="margin-bottom: 9px;">//modal事件<br />//show dialog显示的时候触发<br />//shown dialog显示完毕的时候触发<br />//hide dialog关闭的时候触发<br />//hidden dialog关闭完毕的时候触发<br />$('#myModal').on('hidden', function () {<br />// do something…<br />})</pre>
-
-<!-- 推送成功 -->
-<div class="modal" id="dialog-sucessful" style="display:none;">
-	<div class="modal-header">
-		<h3 class="dialog-title">推送成功</h3>
-	</div>
-	<div class="modal-body">
-		<p>已经将“新浪微博”推送到您的手机请在手机上完成安装</p>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn" id="J-autoclose" data-dismiss="modal">知道了</a>
-	</div>
-</div>
-<!--[if IE 6]>
-<div style="
-color: #474747;
-padding: 8px 35px 8px 14px;
-margin-bottom: 20px;
-background-color: #FCF8E3;
-border: 1px solid #FBEED5;
-line-height: 1.5;
-text-align: center;">
-	<strong>注意！</strong>您的浏览器版本过旧，为了获得更快、更安全的浏览体验，请
-	<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode" target="_blank">立即升级</a>
-	！
-	或者下载其他高级浏览器:
-		<a href="http://www.google.com/chrome" target="_blank">chrome
-	</a>&nbsp;<a href="http://www.liebao.cn" target="_blank">猎豹浏览器
-	</a>
-</div>
-<![endif]-->
-<script src="doc/script/ext/sea-jquery.js" data-main="./script/home"></script>
-<script src="doc/assets/js/google-code-prettify/prettify.js" data-main="./script/home"></script>
-<script src="doc/script/ext/sea-jquery.js" data-main="./script/home"></script>
-</body>
 </html>
