@@ -1,15 +1,15 @@
 {
     "res": {
         "lib/mod.js": {
-            "uri": "demo/lib/mod.js",
+            "uri": "/lib/mod.js",
             "type": "js"
         },
         "lib/zepto.js": {
-            "uri": "demo/lib/zepto.js",
+            "uri": "/lib/zepto.js",
             "type": "js"
         },
         "main.js": {
-            "uri": "demo/main.js",
+            "uri": "/main.js",
             "type": "js",
             "deps": [
                 "module/carousel/carousel.js"
@@ -17,12 +17,12 @@
             "id": "main.js"
         },
         "module/carousel/carousel.css": {
-            "uri": "demo/module/carousel/carousel.css",
+            "uri": "/module/carousel/carousel.css",
             "type": "css",
             "id": "module/carousel/carousel.css"
         },
         "module/carousel/carousel.js": {
-            "uri": "demo/module/carousel/carousel.js",
+            "uri": "/module/carousel/carousel.js",
             "type": "js",
             "deps": [
                 "module/carousel/carousel.css"
