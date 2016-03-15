@@ -10,7 +10,7 @@ fis.config.set('roadmap.path', [{
 //插件与配置
 fis.config.merge({
   roadmap: {
-    domain: 'demo'
+    domain: '.'
   },
   modules: {
     lint: {
