@@ -1,1 +1,0 @@
-alert("js load sucess!");

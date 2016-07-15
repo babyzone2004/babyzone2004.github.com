@@ -1,54 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>橡树小屋 - 以修行的心态体验生活</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<link href="doc/assets/css/docs.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <title>橡树小屋-发现快乐</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="css/docs.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-<div class="header">
-    <div class="container">
-        <ul id="nav" class="nav">
-            <li><a href="#index">首页</a></li><li><a href="#demo">代码库</a></li><li><a href="#about">关于</a></li>
-        </ul>     
-    </div>
-</div>
-<div id="content" class="content">
-    <div class="container">
-        <!-- 首页 begin -->
-        <div class="page" id="page-index">
-            <div class="headline">
-              <h2></h2>
-              <p></p>
-            </div>
-        </div>
-        <!-- 首页 end -->
-        <!-- demo begin -->
-        <div class="page" id="page-demo">
-            <div class="headline"> 
-                <h2>code for world</h2>
-            </div>
-            <div class="page-demo-list">
-                <a href="./demo/motion/demo1.html">下拉菜单动画</a>
-                
-            </div>
-            
-        </div>
-        <!-- demo end -->
-        <!-- about begin -->
-        <div class="page" id="page-about">
 
+<body>
+    <div class="header">
+        <div class="container">
+            <ul id="nav" class="nav">
+                <li><a class="active" href="#index">首页</a></li>
+                <li><a href="#about">关于</a></li>
+            </ul>
         </div>
-        <!-- about end -->
     </div>
-</div>
-<div class="footer">
-    <div class="container">
-        <p>just for fun!</p>
-        <p>Designed and built by babyzone2004</p>
+    <div id="content" class="content">
+        <div class="container">
+            <!-- 首页 begin -->
+            <div class="page" id="page-index">
+                <div class="headline">
+                    <h2>橡树小屋</h2>
+                    <h3>一个前端，半个产品</h3>
+                </div>
+                <div class="con">
+                    <img class="cover" src="img/cover.jpg" alt="" width="110" height="110">
+                </div>
+            </div>
+            <!-- 首页 end -->
+            <!-- demo begin -->
+            <div class="page" id="page-demo">
+            </div>
+            <!-- demo end -->
+            <!-- about begin -->
+            <div class="page" id="page-about">
+                <div class="con">
+                    <h3></h3>
+                    <p>是故无冥冥之志者，无昭昭之名;
+                        <br> 无昏昏之事者，无赫赫之功。
+                    </p>
+                    <div class="key-value">
+                        <span class="key">微博：</span>
+                        <span class="value">http://weibo.com/babyzone2004</span>
+                        <span class="key">知乎：</span>
+                        <span class="value">zhihu.com/people/yang-wei-xian</span>
+                    </div>
+                    <div class="key-value">
+                        <span class="key">Email：</span>
+                        <span class="value">babyzone2004@qq.com</span>
+                    </div>
+                </div>
+            </div>
+            <!-- about end -->
+        </div>
     </div>
-</div>
-<script src="doc/assets/js/sea.js"></script>
+    <div class="footer">
+        <div class="container">
+            <p>Designed and builted by babyzone2004</p>
+        </div>
+    </div>
+    <script src="js/mod.js"></script>
+    <script>
+    require.async('js/index.js');
+    </script>
 </body>
+
 </html>
