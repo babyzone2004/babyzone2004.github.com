@@ -1,0 +1,43 @@
+/**
+ * 
+ */
+.carousel{
+ position: relative;
+ width: 344px;
+ height: 117px;
+}
+.carousel-con{
+ white-space: nowrap;
+ overflow: hidden;
+ width: 100%;
+}
+.carousel-control{
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ text-align: center;
+ list-style: none;
+}
+.carousel-control a{
+ margin: 0 3px;
+ text-decoration: none;
+ display: inline-block;
+ width: 20px;
+ height: 20px;
+ border-radius: 100px;
+ color: #fff;
+ background: rgba(0, 0, 0, .75);
+}
+.carousel-control a.selected{
+ background-color: rgba(169, 6, 6, 0.9);
+}
+.carousel-item{
+ display: inline-block;
+ overflow: hidden;
+ width: 179px;
+ padding-right: 6px;
+ /*transition: transform .1s linear;*/
+}
+.carousel-item:last-child{
+ padding: 0;
+}
