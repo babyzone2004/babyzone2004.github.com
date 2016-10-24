@@ -110,7 +110,7 @@ p {
 }
 
 body {
-    font: 14px/1.4 "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font: 15px/1.5 "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
     color: #5A5A5A;
     background: #efefef;
     height: 100%;
@@ -200,7 +200,10 @@ a {
     color: #fff;
 }
 
-
+h3{
+    font-size: 19px;
+    margin-bottom: 12px;
+}
 /* Content
 -------------------------------------------------- */
 
