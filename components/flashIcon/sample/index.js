@@ -3,8 +3,13 @@ var flashIcon = require('../src/flashIcon.js');
 var domLogo = document.getElementById('logo');
 var logo = flashIcon({
 	contain: domLogo,
-	width: 360,
-	height: 360
+	stageWidth: 360,
+	stageHeight: 360,
+  spriteWidth: 100,
+  spriteHeight: 100,
+  count: 10,
+  img: '',
+  framerate: 10
 });
 
 // logo.addSprite(sprite);
