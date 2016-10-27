@@ -24,7 +24,7 @@ logo.addSprite(sprite);
 logo.play();
 
 document.getElementById('stop').onclick = function() {
-	logo.pause();
+	logo.stop();
 }
 document.getElementById('start').onclick = function() {
 	logo.play();

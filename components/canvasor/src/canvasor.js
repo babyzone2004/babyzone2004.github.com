@@ -41,7 +41,7 @@ Canvasor.prototype = {
   play: function() {
     console.log('play');
     var self = this;
-    this.paused = false;
+    this.pause = false;
     raf(function(time) {
       console.log(this);
       self.animate(time);
@@ -49,7 +49,7 @@ Canvasor.prototype = {
   },
 
   animate: function(time) {
-    if (this.paused) {
+    if (this.pause) {
       return;
     }
     this.fps = (0.5 + 1000 / (time - this.lastTime)) << 0;
@@ -72,8 +72,8 @@ Canvasor.prototype = {
     });
   },
 
-  pause: function() {
-    this.paused = true;
+  stop: function() {
+    this.pause = true;
   },
 
   addSprite: function(sprite) {

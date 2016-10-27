@@ -13,44 +13,47 @@ function FlashIcon(opt) {
   var img = opt.img;
   var count = opt.count;
   var sY = spriteHeight;
+  var logo = this.logo = new Canvasor(opt.contain, opt.stageWidth, opt.stageHeight);
   this.sprite = {
     index: 0,
-    frameTime: 1/opt.count,
+    frameTime: 1/opt.framerate,
     runTime: 0,
+    stop: false,
     update: function (ctx, fps, stageWidth, stageHeight) {
+      if(this.stop && this.index === 1) {
+        logo.stop();
+        return;
+      }
       this.runTime += 1/fps;
       if(this.runTime >= this.frameTime) {
+        this.sX = spriteWidth * this.index;
         this.index++;
         this.runTime = 0;
         if(this.index === count) {
           this.index = 0;
         }
-        this.sY = spriteHeight * this.index;
       }
     },
     paint: function (ctx, stageWidth, stageHeight) {
-      ctx.drawImage(img, 0, 0, spriteWidth, sY, 0, 0, spriteWidth, spriteHeight);
+      ctx.drawImage(img, this.sX, 0, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
     },
     visible: true
   };
-  this.logo = new Canvasor(opt.contain, opt.width, opt.height);
-  this.logo.addSprite(this.sprite);
+  
+  logo.addSprite(this.sprite);
 }
 
 FlashIcon.prototype.play = function() {
+  this.sprite.stop = false;
   this.logo.play();
 }
 
 FlashIcon.prototype.stop = function() {
-  this.sprite.index = 0;
-  var self = this;
-  setTimeout(function() {
-    self.logo.pause();
-  })
+  this.sprite.stop = true;
 }
 
 FlashIcon.prototype.pause = function() {
-  this.logo.pause();
+  this.logo.stop();
 }
 
 function init(opt) {
