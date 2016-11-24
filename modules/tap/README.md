@@ -6,7 +6,7 @@
 
 1. 与IOS,Android点击交互保持一致，点击或长按触发‘tap’事件
 2. 粒度小，包括注释不到50行代码
-3. Chromium51+版本，默认开启passive:true（[Passive Event Listeners]([https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md))，滚动优化，更流畅，效果对比点击[这里]([https://rbyers.github.io/scroll-latency.html](https://rbyers.github.io/scroll-latency.html))）
+3. Chromium51+版本，默认开启passive:true（[Passive Event Listeners][https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md])，滚动优化，更流畅，效果对比点击[这里](https://rbyers.github.io/scroll-latency.html)
 
 ## Getting Started
 
