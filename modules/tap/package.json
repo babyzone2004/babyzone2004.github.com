@@ -1,6 +1,6 @@
 {
   "name": "bTap",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a simple&fast tap event module with smooth scroll",
   "main": "src/tap.js",
   "scripts": {
