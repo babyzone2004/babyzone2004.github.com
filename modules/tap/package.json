@@ -1,7 +1,7 @@
 {
-  "name": "tap",
-  "version": "1.0.0",
-  "description": "a simple fast scroll smooth tap event lib",
+  "name": "bTap",
+  "version": "1.0.3",
+  "description": "a simple&fast tap event module with smooth scroll",
   "main": "src/tap.js",
   "scripts": {
     "build": "babel --plugins transform-es2015-modules-commonjs ./src/tap.js --out-file ./dist/tap-commonjs.js; babel --plugins transform-es2015-modules-amd ./src/tap.js --out-file ./dist/tap-amd.js;babel --plugins transform-es2015-modules-umd ./src/tap.js --out-file ./dist/tap-umd.js",
@@ -26,6 +26,6 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/babyzone2004/babyzone2004.github.com/tree/master/modules/tap"
   }
 }

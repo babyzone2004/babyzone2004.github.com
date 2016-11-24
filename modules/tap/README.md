@@ -1,48 +1,45 @@
-# Url Query工具
+# 模拟移动端tap事件
 
 > 提供es6,amd,commonjs,umd版本
+
+## Feature
+
+1. 与IOS,Android点击交互保持一致，点击或长按触发‘tap’事件
+2. 粒度小，包括注释不到50行代码
+3. Chromium51+版本，默认开启passive:true（[Passive Event Listeners]([https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md))，滚动优化，更流畅，效果对比点击[这里]([https://rbyers.github.io/scroll-latency.html](https://rbyers.github.io/scroll-latency.html))）
 
 ## Getting Started
 
 ```shell
-$ npm install @mi/query
+$ npm install bTap
 ```
+
 ## API
-### add
 
-| option  | 描述                                       |
-| ------- | :--------------------------------------- |
-| `url`   | 操作的url                                   |
-| `key`   | 可传入两种参数：1. Object：直接序列化；2. String：需要增加第三个value参数； |
-| `value` | query key                                |
+### attach
 
-### get
-| option | 描述       |
-| ------ | :------- |
-| `name` | 获取query值 |
+| param | 描述                   |
+| :---- | :------------------- |
+| node  | 传入需要绑定的dom对象，一般是body |
 
 ## Usage
 
 ```js
 //es6:
-import * as query from '../query.js';
-query.add('http://mi.com', 'name', 'hello');
-query.add('name', {
-	name: 'hello',
-	page: 1
+import * as tap from 'bTap';
+var bd = document.body;
+tap.attach(bd);
+bd.addEventListener('tap', function () {
+  console.log('tap fire');
 });
-query.get('name');
 
 //commonjs
-var query = require('../query-commonjs.js');
-query.add('http://mi.com', 'name', 'hello');
-query.add('name', {
-	name: 'hello',
-	page: 1
-});
-query.get('name');
+var tap = require('bTap/dist/tap-commonjs.js');
 
 //amd umd
 ...
 ```
 
+## Sample
+
+http://babyzone2004.github.io/modules/tap/sample/index.html
