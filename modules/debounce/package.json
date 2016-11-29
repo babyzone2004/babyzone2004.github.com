@@ -1,14 +1,14 @@
 {
-  "name": "b_Tap",
-  "version": "1.0.6",
-  "description": "a simple&fast tap event module with smooth scroll",
-  "main": "src/tap.js",
+  "name": "b_debounce",
+  "version": "1.0.1",
+  "description": "debounce",
+  "main": "src/debounce.js",
   "scripts": {
-    "build": "babel --plugins transform-es2015-modules-commonjs ./src/tap.js --out-file ./dist/tap-commonjs.js; babel --plugins transform-es2015-modules-amd ./src/tap.js --out-file ./dist/tap-amd.js;babel --plugins transform-es2015-modules-umd ./src/tap.js --out-file ./dist/tap-umd.js",
+    "build": "babel --plugins transform-es2015-modules-commonjs ./src/debounce.js --out-file ./dist/debounce-commonjs.js; babel --plugins transform-es2015-modules-amd ./src/debounce.js --out-file ./dist/debounce-amd.js;babel --plugins transform-es2015-modules-umd ./src/debounce.js --out-file ./dist/debounce-umd.js",
     "sample": "open ./sample/index.html"
   },
   "keywords": [
-    "tap"
+    "debounce"
   ],
   "author": "babyzone2004",
   "license": "MIT",
@@ -20,13 +20,12 @@
     "babel-plugin-transform-es2015-modules-umd": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "eslint-loader": "^1.6.0",
-    "fastclick": "^1.0.6",
     "jshint-loader": "^0.8.3",
     "webpack": "^1.13.1"
   },
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/babyzone2004/babyzone2004.github.com/tree/master/modules/tap"
+    "url": "https://github.com/babyzone2004/babyzone2004.github.com/tree/master/modules/debounce"
   }
 }

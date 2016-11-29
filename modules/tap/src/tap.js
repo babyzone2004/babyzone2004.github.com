@@ -3,10 +3,7 @@
  * @description a simple & effective tap,support passive=true,scroll smooth
  * @author babyzone2004
  */
-var startTx;
-var startTy;
-var touches;
-var win = window;
+
 // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
 var listenerParam;
 try {
@@ -15,27 +12,34 @@ try {
       listenerParam = {passive: true};
     }
   });
-  win.addEventListener('test', null, opts);
+  addEventListener('test', null, opts);
 } catch (e) {
   listenerParam = false;
 }
 
+var touches;
+var startTx;
+var startTy;
 var onsTouchStart = function(e) {
   touches = e.touches[0];
   startTx = touches.clientX;
   startTy = touches.clientY;
 };
 
+var changedTouches;
+var evt;
 var onTouchEnd = function(e) {
-  var touches = e.changedTouches[0];
-  var endTx = touches.clientX;
-  var endTy = touches.clientY;
-  // 部分设备touch 事件比较灵敏，导致按下和松开手指时的事件坐标会出现一点点变化
-  if (Math.abs(startTx - endTx) < 5 && Math.abs(startTy - endTy) < 3); {
-    var evt = new win.CustomEvent('tap', {
-      bubbles: true,
-      cancelable: true
-    });
+  changedTouches = e.changedTouches[0];
+  if (Math.abs(startTx - changedTouches.clientX) < 5 && Math.abs(startTy - changedTouches.clientY) < 5) {
+    if (CustomEvent) {
+      evt = new CustomEvent('tap', {
+        bubbles: true,
+        cancelable: true
+      });    
+    } else {
+      evt = document.createEvent('CustomEvent');
+      evt.initEvent('tap', true, true);
+    }
     e.target.dispatchEvent(evt);
   }
 };
