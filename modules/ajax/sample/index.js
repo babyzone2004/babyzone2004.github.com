@@ -5,9 +5,7 @@ function id(name) {
   return document.getElementById(name);
 }
 
-id('btn').addEventListener('click', function() {
-  request();
-});
+id('btn').addEventListener('click', request);
 function request() {
   ajax({
     url: './test.json',

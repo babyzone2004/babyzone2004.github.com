@@ -1,6 +1,6 @@
 {
   "name": "b_throttle",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "throttle 截流函数",
   "main": "src/throttle.js",
   "scripts": {

@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5a82f363a8003640e387"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1f24d797dc26ae5a2d35"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -587,23 +587,28 @@
 
 	var _ajax = __webpack_require__(1);
 
-	(0, _ajax.ajax)({
-	  url: './test.json',
-	  type: 'GET',
-	  data: {
-	    a: 1,
-	    b: 2,
-	    c: {
-	      d: 3
+	function id(name) {
+	  return document.getElementById(name);
+	}
+
+	id('btn').addEventListener('click', request);
+	function request() {
+	  (0, _ajax.ajax)({
+	    url: './test.json',
+	    type: 'GET',
+	    data: {
+	      a: 1,
+	      b: 2
+	    },
+	    success: function success(msg) {
+	      console.log('success', msg);
+	      id('result').innerHTML = JSON.stringify(msg);
+	    },
+	    error: function error(xhr) {
+	      console.log('error', xhr);
 	    }
-	  },
-	  success: function success(msg, xhr) {
-	    console.log('success', msg);
-	  },
-	  error: function error(xhr) {
-	    console.log('error');
-	  }
-	});
+	  });
+	}
 
 /***/ },
 /* 1 */
@@ -614,6 +619,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/**
+	 * ajax.js 
+	 * @author babyzone2004
+	 * 
+	 * @param url {String} url
+	 * @param type {String} GET | POST
+	 * @param data {Object} 传输的数据
+	 * @param success {Function} 成功回调
+	 * @param error {Function} 失败回调
+	 * @param withCredentials {Boolean} 跨域参数
+	 * 
+	 * @return {xhr} 
+	 */
+
 	var serializeParam = function serializeParam(param) {
 	  if (!param) return '';
 	  var s = [];
@@ -633,14 +652,14 @@
 	  var xhr = new XMLHttpRequest();
 	  var qstr = serializeParam(o.data);
 	  var url = o.url;
-
 	  !isPost && (url += (url.indexOf('?') > -1 ? '&' : '?') + qstr);
-	  if (withCredentials) xhr.withCredentials = true;
-	  isPost && xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	  xhr.open(m, url, true);
+	  if (withCredentials) xhr.withCredentials = true;
 
+	  isPost && xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	  var timer = 0;
+
 	  xhr.onreadystatechange = function () {
 	    if (4 == xhr.readyState) {
 	      var status = xhr.status;
@@ -654,7 +673,7 @@
 	        }
 	        o.success && o.success(json, xhr);
 	      } else {
-	        o.error && o.error(xhr);
+	        o.error && o.error(xhr.statusText);
 	      }
 	      isComplete = true;
 	      if (timer) {

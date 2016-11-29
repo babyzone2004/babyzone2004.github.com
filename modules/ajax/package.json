@@ -1,6 +1,6 @@
 {
   "name": "b_ajax",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "简单方便的ajax",
   "main": "src/ajax.js",
   "scripts": {
