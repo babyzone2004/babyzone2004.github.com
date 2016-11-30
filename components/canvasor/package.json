@@ -1,7 +1,7 @@
 {
-  "name": "canvasor",
-  "version": "0.0.1",
-  "description": "simple engine for animation",
+  "name": "b_cavasor",
+  "version": "1.0.1",
+  "description": "高效的动画引擎，适配高清屏",
   "main": "src/canvasor.js",
   "scripts": {
     "build": "babel --plugins transform-es2015-modules-commonjs ./src/canvasor.js --out-file ./dist/canvasor-commonjs.js; babel --plugins transform-es2015-modules-amd ./src/canvasor.js --out-file ./dist/canvasor-amd.js;babel --plugins transform-es2015-modules-umd ./src/canvasor.js --out-file ./dist/canvasor-umd.js",
@@ -26,6 +26,6 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/babyzone2004/babyzone2004.github.com/tree/master/modules/canvasor"
   }
 }

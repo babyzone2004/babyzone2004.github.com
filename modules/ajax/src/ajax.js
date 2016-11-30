@@ -8,6 +8,7 @@
  * @param success {Function} 成功回调
  * @param error {Function} 失败回调
  * @param withCredentials {Boolean} 跨域参数
+ * @param timeout {Int} ms
  * 
  * @return {xhr} 
  */
@@ -27,7 +28,7 @@ var ajax = function(option) {
   var isPost = 'POST' == m;
   var isComplete = false;
   var timeout = o.timeout;
-  var withCredentials = o.withCredentials; //跨域ajax
+  var withCredentials = o.withCredentials;
   var xhr = new XMLHttpRequest();
   var qstr = serializeParam(o.data);
   var url = o.url;
@@ -52,7 +53,7 @@ var ajax = function(option) {
         }
         o.success && o.success(json, xhr);
       } else {
-        o.error && o.error(xhr.statusText);
+        o.error && o.error(xhr, xhr.status ? 'error' : 'abort');
       }
       isComplete = true;
       if (timer) {
@@ -61,12 +62,14 @@ var ajax = function(option) {
     }
   };
 
-  xhr.send(isPost ? qstr : void(0));
+  xhr.send(isPost ? qstr : null);
 
   if (timeout) {
     timer = setTimeout(function() {
       if (!isComplete) {
+        xhr.onreadystatechange = function() {};
         xhr.abort();
+        o.error && o.error(xhr, 'timeout');
       }
     }, timeout);
   }

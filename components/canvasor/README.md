@@ -1,48 +1,91 @@
-# Url Query工具
+# canvasser
 
-> 提供es6,amd,commonjs,umd版本
+> 一个渲染精灵对象的底层动画引擎，提供es6,amd,commonjs,umd版本
+
+## Feature
+
+1. 支持高清屏适配
+2. 提供精灵对象的渲染和销毁
+3. 兼容主流移动系统
 
 ## Getting Started
 
 ```shell
-$ npm install @mi/query
+$ npm install b_cavasor
 ```
+
 ## API
-### add
 
-| option  | 描述                                       |
-| ------- | :--------------------------------------- |
-| `url`   | 操作的url                                   |
-| `key`   | 可传入两种参数：1. Object：直接序列化；2. String：需要增加第三个value参数； |
-| `value` | query key                                |
+### addSprite
 
-### get
-| option | 描述       |
-| ------ | :------- |
-| `name` | 获取query值 |
+向动画引擎增加精灵对象
+
+| option   | 描述   |
+| -------- | :--- |
+| `sprite` | 精灵对象 |
+
+### play
+
+播放动画
+
+### stop
+
+暂停动画
+
+## 精灵对象
+
+可以渲染的独立单位，需要提供以下属性，当visible为true，在下次渲染之前该对象会被销毁
+
+```javascript
+var sprite = {
+  update: function(ctx, fps, stageWidth, stageHeight) {
+    console.log(fps);
+    this.x++;
+    if (this.x > 50) {
+      this.visible = false;
+    }
+  },
+  paint: function(ctx, stageWidth, stageHeight) {
+    ctx.fillStyle = 'green';
+    ctx.fillRect(this.x, 10, 100, 100);
+  },
+  visible: true
+};
+```
 
 ## Usage
 
 ```js
 //es6:
-import * as query from '../query.js';
-query.add('http://mi.com', 'name', 'hello');
-query.add('name', {
-	name: 'hello',
-	page: 1
-});
-query.get('name');
+var Canvasor = require('b_canvasor');
+var domLogo = document.getElementById('logo');
+var logo = new Canvasor(domLogo, 360, 360);
+
+var sprite = {
+  x: 1,
+  update: function(ctx, fps, stageWidth, stageHeight) {
+    console.log(fps);
+    this.x++;
+    if (this.x > 50) {
+      this.visible = false;
+    }
+  },
+  paint: function(ctx, stageWidth, stageHeight) {
+    ctx.fillStyle = 'green';
+    ctx.fillRect(this.x, 10, 100, 100);
+  },
+  visible: true
+};
+logo.addSprite(sprite);
+logo.play();
 
 //commonjs
-var query = require('../query-commonjs.js');
-query.add('http://mi.com', 'name', 'hello');
-query.add('name', {
-	name: 'hello',
-	page: 1
-});
-query.get('name');
+var Canvasor = require('canvasor/dist/canvasor-commonjs.js');
 
 //amd umd
 ...
 ```
 
+## Sample
+
+http://babyzone2004.github.io/components/canvasor/sample/index.html
