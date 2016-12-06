@@ -1,6 +1,6 @@
 {
   "name": "b_debounce",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "debounce",
   "main": "src/debounce.js",
   "scripts": {

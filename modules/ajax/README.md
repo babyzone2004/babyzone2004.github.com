@@ -1,4 +1,4 @@
-# 模拟移动端tap事件
+# ajax方法
 
 > 提供es6,amd,commonjs,umd版本
 
@@ -23,7 +23,7 @@ $ npm install b_ajax
 
 ## Usage
 
-使用attach绑定到dom上，通过事件侦听‘tap’事件
+跟jquery用法差不多，只接受json数据所以不需要设置dataType
 
 ```js
 //es6:

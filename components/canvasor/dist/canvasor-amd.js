@@ -1,6 +1,9 @@
-define(['module'], function (module) {
+define(['exports'], function (exports) {
   'use strict';
 
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
   /**
    * Canvasor.js 
    * @description a simple & effective animator for canvas
@@ -26,23 +29,20 @@ define(['module'], function (module) {
     // 适配高清屏幕
     canvas.width = this.stageWidth = width * dpi;
     canvas.height = this.stageHeight = height * dpi;
+    this.ctx.globalCompositeOperation = 'destination-over';
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
     this.ctx.scale(dpi, dpi);
-
     this.sprites = [];
-
     this.lastTime = 0;
     contain.appendChild(canvas);
   };
 
   Canvasor.prototype = {
     play: function play() {
-      console.log('play');
       var self = this;
       this.pause = false;
       raf(function (time) {
-        console.log(this);
         self.animate(time);
       });
     },
@@ -53,16 +53,18 @@ define(['module'], function (module) {
       }
       this.fps = 0.5 + 1000 / (time - this.lastTime) << 0;
       this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-      var spritesLen = this.sprites.length;
+      var i;
       // 分开两个循环，优化渲染效率
-      for (var i = 0; i < spritesLen; i++) {
-        this.sprites[i].update(this.ctx, this.fps, this.stageWidth, this.stageHeight);
-      };
-      for (var i = 0; i < spritesLen; i++) {
-        if (this.sprites[i].visible) {
-          this.sprites[i].paint(this.ctx, this.stageWidth, this.stageHeight);
+      for (i = this.sprites.length - 1; i >= 0; i--) {
+        if (!this.sprites[i].visible) {
+          this.sprites.splice(i);
+          continue;
         }
-      };
+        this.sprites[i].update(this.ctx, this.fps, this.stageWidth, this.stageHeight);
+      }
+      for (i = this.sprites.length - 1; i >= 0; i--) {
+        this.sprites[i].paint(this.ctx, this.stageWidth, this.stageHeight);
+      }
 
       this.lastTime = time;
       var self = this;
@@ -80,5 +82,5 @@ define(['module'], function (module) {
     }
   };
 
-  module.exports = Canvasor;
+  exports.Canvasor = Canvasor;
 });

@@ -1,6 +1,6 @@
 {
   "name": "b_cavasor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "高效的动画引擎，适配高清屏",
   "main": "src/canvasor.js",
   "scripts": {
@@ -26,6 +26,6 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/babyzone2004/babyzone2004.github.com/tree/master/modules/canvasor"
+    "url": "https://github.com/babyzone2004/babyzone2004.github.com/tree/master/components/canvasor"
   }
 }

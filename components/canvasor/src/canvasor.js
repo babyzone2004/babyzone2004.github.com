@@ -27,6 +27,7 @@ var Canvasor = function(contain, width, height) {
   // 适配高清屏幕
   canvas.width = this.stageWidth = width * dpi;
   canvas.height = this.stageHeight = height * dpi;
+  this.ctx.globalCompositeOperation = 'destination-over';
   canvas.style.width = width + 'px';
   canvas.style.height = height + 'px';
   this.ctx.scale(dpi, dpi);
