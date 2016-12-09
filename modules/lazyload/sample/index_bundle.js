@@ -64,7 +64,7 @@
 /******/ 	}
 
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0042776468131d8e011c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "623b8b35aa7f27a12e9c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 
@@ -584,18 +584,245 @@
 
 	'use strict';
 
-	var _throttle = __webpack_require__(1);
+	var _lazyload = __webpack_require__(1);
 
 	function id(name) {
 	  return document.getElementById(name);
 	}
 
-	id('btn').addEventListener('click', (0, _throttle.throttle)(function () {
-	  console.log('连续点击，只会每隔1000毫秒执行一次');
-	}, 1000, true));
+	var lazyload = new _lazyload.Lazyload({
+	  extralHandler: id('J_scroll'),
+	  loadImmdiately: true
+	});
+	lazyload.cacheImg();
+	lazyload.addExtralHandler(id('J_scroll1'));
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Lazyload = undefined;
+
+	var _b_throttle = __webpack_require__(2);
+
+	var _b_debounce = __webpack_require__(3);
+
+	var _b_observer = __webpack_require__(4);
+
+	Lazyload.prototype = new _b_observer.Observer();
+	/**
+	* lazyload.js 
+	* @description 图片懒加载 lazyload img
+	* @author babyzone2004
+	*/
+
+	/**
+	增加以下css
+	.lazyload {
+	  opacity: 0;
+	}
+	.lazyload-show {
+	  opacity: 1;
+	}
+	.lazyload-fadein {
+	  position: relative;
+	  z-index: 1;
+	  transition: opacity .2s ease-in;
+	  opacity: 1;
+	}
+	 */
+
+	Lazyload.prototype.constructor = Lazyload;
+
+	function render(imgCache, fadeIn) {
+	  var img = imgCache.img;
+	  if (img.tagName.toLowerCase() === 'img') {
+	    img.src = img.dataset.src;
+	  } else {
+	    img.style['background-image'] = 'url(' + img.dataset.src + ')';
+	  }
+	  if (fadeIn) {
+	    img.classList.add('lazyload-fadein');
+	  } else {
+	    img.classList.add('lazyload-show');
+	  }
+	  imgCache.isLoad = true;
+	  imgCache.isLoading = false;
+	}
+
+	function Lazyload(opt) {
+	  var me = this;
+	  me.scrollStop = true;
+	  opt = this.opt = this.mix({
+	    selector: '.J_lazyload',
+	    buffer: 450,
+	    interval: 150,
+	    fadeIn: true,
+	    bufferWidth: 10,
+	    loadImmdiately: true,
+	    handler: window
+	  }, opt);
+	  this.loadImmdiately = opt.loadImmdiately;
+	  this.buffer = opt.buffer;
+	  this.fadeIn = opt.fadeIn;
+	  _b_observer.Observer.call(this, opt.handler, opt.selector);
+
+	  this.throttleLoad = (0, _b_throttle.throttle)(function (e, isExtra) {
+	    me.loadImg(e, isExtra);
+	  }, opt.interval);
+
+	  var downloadedImgs = me.downloadedImgs = [];
+	  var renderCacheImgs = function renderCacheImgs(fadeIn) {
+	    me.scrollStop = true;
+	    while (downloadedImgs.length !== 0) {
+	      render(downloadedImgs.shift(), fadeIn);
+	    }
+	  };
+	  this.debounceRender = (0, _b_debounce.debounce)(renderCacheImgs, 64);
+	}
+
+	Lazyload.prototype.scrollCb = function (e, isExtra) {
+	  this.throttleLoad(e, isExtra);
+	  this.debounceRender(e, isExtra);
+	};
+
+	Lazyload.prototype.cacheElem = function (cache, positions, elem, scrollTop) {
+	  var rect = elem.getBoundingClientRect();
+	  var top = Math.round(rect.top + scrollTop - this.offsetTop);
+	  var left = rect.left;
+	  if (!cache[top]) {
+	    positions.push(top);
+	    cache[top] = [];
+	  }
+	  var lazy = elem.dataset.lazy;
+	  var imgCache = {
+	    img: elem,
+	    isLoad: false,
+	    isLoading: false,
+	    left: left,
+	    lazy: lazy
+	  };
+	  cache[top].push(imgCache);
+	  elem.classList.remove('J_lazyload');
+	  if (this.loadImmdiately && !lazy && left < this.handlerWidth) {
+	    this.load(imgCache);
+	  }
+	};
+
+	/*
+	 * 更新加载数据，放到缓存中
+	 * @Param {NodeList} elems，图片
+	 * */
+	Lazyload.prototype.cacheImg = function () {
+	  this.update();
+	  this.loadImg();
+	};
+
+	// 加载符合条件的图片
+	Lazyload.prototype.loadImg = function (e, horizon) {
+	  var me = this;
+	  var cache = me.cache;
+	  var fadeIn = me.fadeIn;
+	  var top = me.getScrollTop();
+	  var handlerWidth = me.handlerWidth;
+
+	  // 返回要加载的索引
+	  var activeTop = top - this.buffer;
+	  var activeBottom = top + this.handlerHeight + this.buffer;
+	  var LoadIndexs = this.positions.filter(function (pos) {
+	    if (pos > activeTop && pos < activeBottom) {
+	      return true;
+	    }
+	  });
+
+	  // 处理横滑的情况
+	  var scrollLeft = 0;
+	  if (horizon) {
+	    var target = e.target;
+	    scrollLeft = target.scrollLeft;
+	    var targetHeight = target.clientHeight;
+	    var targetTop = Math.round(target.getBoundingClientRect().top);
+	    LoadIndexs = LoadIndexs.filter(function (item) {
+	      if (targetTop + top <= item && item <= targetTop + top + targetHeight) {
+	        return true;
+	      }
+	    });
+	  }
+	  for (var i = 0, ii = LoadIndexs.length; i < ii; i++) {
+	    var elems = cache[LoadIndexs[i]];
+	    for (var j = 0, jj = elems.length; j < jj; j++) {
+	      var elem = elems[j];
+	      if (elem.left - scrollLeft < handlerWidth) {
+	        me.load(elem, fadeIn);
+	      }
+	    }
+	  }
+	};
+
+	/*
+	 * 加载图片
+	 * */
+	Lazyload.prototype.load = function (imgCache, fadeIn) {
+	  var me = this;
+	  if (!imgCache.isLoad && !imgCache.isLoading) {
+	    var img = imgCache.img;
+	    var startTime = Date.now();
+	    var handler = function (imgCache) {
+	      return function () {
+	        // 缓存或者加载特别快的图片，不用渐现，与dom render一起渲染
+	        if (Date.now() - startTime < 48 && !imgCache.lazy) {
+	          fadeIn = false;
+	        }
+	        // 如果延迟显示
+	        if (!imgCache.lazy || imgCache.lazy && me.scrollStop) {
+	          render(imgCache, fadeIn);
+	        } else {
+	          me.downloadedImgs.push(imgCache);
+	          imgCache.isLoading = false;
+	        }
+	      };
+	    }(imgCache);
+	    var handlerErr = function (imgCache) {
+	      return function () {
+	        imgCache.isLoading = false;
+	      };
+	    }(imgCache);
+	    imgCache.isLoading = true;
+	    var _img = new Image();
+	    _img.src = img.dataset.src;
+	    _img.onload = handler;
+	    _img.onerror = handlerErr;
+	  }
+	};
+
+	/**
+	 * @description 立即加载图片
+	 * @Param {Boolean} placeholder
+	 */
+	Lazyload.show = function (handler, selector) {
+	  handler = handler || document.body;
+	  var imgs = handler.querySelectorAll(selector);
+	  for (var i = 0, ii = imgs.length; i < ii; i++) {
+	    var elem = imgs[i];
+	    if (elem.tagName.toLowerCase() === 'img') {
+	      elem.src = elem.dataset.src;
+	    } else {
+	      elem.style['background-image'] = 'url(' + elem.dataset.src + ')';
+	    }
+	    var elemClass = elem.classList;
+	    elemClass.remove(selector);
+	  }
+	};
+
+	exports.Lazyload = Lazyload;
+
+/***/ },
+/* 2 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -645,6 +872,214 @@
 	}
 
 	exports.throttle = throttle;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	* @param fn {Function} 实际要执行的函数
+	* @param delay {Number} 延迟时间，也就是阈值，单位是毫秒
+	* @return {Function} 
+	*/
+	function debounce(fn, delay) {
+	  var timer;
+	  var tTimer;
+	  var context;
+	  var args = [];
+	  var _argumentsr;
+	  return function () {
+	    context = this;
+	    _argumentsr = arguments;
+	    // 增加throttle处理，避免频繁执行clearTimer的开销
+	    if (!tTimer) {
+	      tTimer = setTimeout(function () {
+	        clearTimeout(timer);
+	        timer = setTimeout(function () {
+	          // 针对chromium内核优化,https://github.com/GoogleChrome/devtools-docs/issues/53
+	          for (var i = 0, ii = _argumentsr.length; i < ii; i++) {
+	            args.push(_argumentsr[i]);
+	          }
+	          fn.apply(context, args);
+	          args = [];
+	        }, delay);
+	        tTimer = null;
+	      }, 32);
+	    }
+	  };
+	}
+
+	exports.debounce = debounce;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	/**
+	* observe.js 
+	* @description 监听元素是否在视口之内的基类
+	* @author babyzone2004
+	*/
+
+	var win = window;
+
+	function Observer(handler, selector) {
+	  if (handler) {
+	    var me = this;
+	    this.cache = {};
+	    this.selector = selector;
+	    this.positions = [];
+	    this.handler = handler;
+	    if (handler === win) {
+	      this.container = document.body;
+	    } else {
+	      this.container = handler;
+	    }
+	    this.offsetTop = this.handler === win ? 0 : this.handler.getBoundingClientRect().top;
+	    this.updateContainSize();
+	    handler.addEventListener('scroll', function (e) {
+	      me.scrollStop = false;
+	      me.scrollCb(e);
+	    });
+	  }
+	}
+
+	Observer.prototype.mix = function (ori, dest) {
+	  for (var i in dest) {
+	    ori[i] = dest[i];
+	  }
+	  return ori;
+	};
+
+	Observer.prototype.cacheElem = function (cache, positions, elem, scrollTop) {
+	  var rect = elem.getBoundingClientRect();
+	  var top = Math.round(rect.top + scrollTop - this.offsetTop);
+	  var left = rect.left;
+	  if (!cache[top]) {
+	    positions.push(top);
+	    cache[top] = [];
+	  }
+	  var domCache = {
+	    dom: elem,
+	    left: left,
+	    right: rect.right,
+	    bottom: rect.bottom
+	  };
+	  cache[top].push(domCache);
+	  elem.classList.remove(this.selector);
+	};
+
+	/*
+	 * 更新加载数据，放到缓存中
+	 * @Param {NodeList} elems，图片
+	 * */
+	Observer.prototype.update = function () {
+	  var doms = this.container.querySelectorAll(this.selector);
+	  if (!doms.length) return;
+	  var cache = this.cache;
+	  var positions = this.positions;
+	  var scrollTop = this.getScrollTop();
+	  for (var i = 0, ii = doms.length; i < ii; i++) {
+	    var dom = doms[i];
+	    this.cacheElem(cache, positions, dom, scrollTop);
+	  }
+	};
+
+	/*
+	 * 更新加载数据，放到缓存中
+	 * @Param {NodeList} elems，图片
+	 * */
+	Observer.prototype.updateCache = function () {
+	  var cache = this.cache;
+	  var scrollTop = this.getScrollTop();
+	  var newCache = {};
+	  var newPosition = [];
+	  for (var i in cache) {
+	    var items = cache[i];
+	    for (var j = 0, jj = items.length; j < jj; j++) {
+	      var dom = items[j].dom;
+	      this.cacheElem(newCache, newPosition, dom, scrollTop);
+	    }
+	  }
+	  this.cache = newCache;
+	  this.positions = newPosition;
+	};
+
+	// 清除指定范围的图片内存
+	Observer.prototype.clearMemory = function (top, bottom) {
+	  var me = this;
+	  var cache = me.cache;
+	  top = Math.round(top);
+	  bottom = Math.round(bottom);
+	  top -= this.offsetTop;
+	  bottom -= this.offsetTop;
+	  me.positions = me.positions.filter(function (position) {
+	    var match = position >= top && position < bottom;
+	    if (match) {
+	      cache[position] = [];
+	    }
+	    return !match;
+	  });
+	};
+
+	// 更新容器尺寸
+	Observer.prototype.updateContainSize = function () {
+	  var handler = this.handler;
+	  if (handler === win) {
+	    this.handlerHeight = win.innerHeight;
+	    this.handlerWidth = win.innerWidth;
+	  } else {
+	    this.handlerHeight = handler.clientHeight;
+	    this.handlerWidth = handler.clientWidth;
+	  }
+	};
+
+	// 删除某个指定元素的缓存
+	Observer.prototype.clearElemMemory = function (elem) {
+	  var cache = this.cache;
+	  for (var i in cache) {
+	    var elems = cache[i];
+	    if (elems) {
+	      var index = elems.indexOf(elem);
+	      elems.splice(index, 1);
+	    }
+	  }
+	};
+
+	Observer.prototype.getScrollTop = function () {
+	  if (this.handler === win) {
+	    return win.scrollY;
+	  } else {
+	    return this.handler.scrollTop;
+	  }
+	};
+
+	Observer.prototype.scrollCb = function () {};
+
+	/**
+	 * 增加额外的横向滚动处理
+	 * @param {[type]} $dom [description]
+	 */
+	Observer.prototype.addExtralHandler = function (handler) {
+	  var me = this;
+	  handler.addEventListener('scroll', function (e) {
+	    me.scrollStop = false;
+	    me.scrollCb(e, true);
+	  });
+	};
+
+	exports.Observer = Observer;
 
 /***/ }
 /******/ ]);

@@ -64,7 +64,7 @@
 /******/ 	}
 
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0042776468131d8e011c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f2efe004d03ea8c183a5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 
@@ -584,67 +584,81 @@
 
 	'use strict';
 
-	var _throttle = __webpack_require__(1);
+	var _tap = __webpack_require__(1);
+
+	var tap = _interopRequireWildcard(_tap);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function id(name) {
 	  return document.getElementById(name);
 	}
 
-	id('btn').addEventListener('click', (0, _throttle.throttle)(function () {
-	  console.log('连续点击，只会每隔1000毫秒执行一次');
-	}, 1000, true));
+	tap.attach(document.body);
+	id('btn').addEventListener('tap', function () {
+	  alert('tap event');
+	});
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	/**
-	* 截流函数
-	* @param fn {Function} 实际要执行的函数
-	* @param delay {Number} 间隔执行时间，单位是毫秒
-	* @param immediately {Number} 
-	* 是否需要立即执行一次，像lazyload这种情况，没必要设置true
-	* 如果开启，最后一次执行可能会被setTimeout abort调
-	* 
-	* @return {Function} 
-	*/
+	 * tap.js 
+	 * @description a simple & effective tap,support passive=true,scroll smooth
+	 * @author babyzone2004
+	 */
 
-	// 针对chromium内核优化,https://github.com/GoogleChrome/devtools-docs/issues/53
-	function setArgs(newArgs, oldArgs) {
-	  for (var i = 0, ii = oldArgs.length; i < ii; i++) {
-	    newArgs.push(oldArgs[i]);
+	// https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+	var listenerParam;
+	try {
+	  var opts = Object.defineProperty({}, 'passive', {
+	    get: function get() {
+	      listenerParam = { passive: true };
+	    }
+	  });
+	  addEventListener('test', null, opts);
+	} catch (e) {
+	  listenerParam = false;
+	}
+
+	var touches;
+	var startTx;
+	var startTy;
+	var onsTouchStart = function onsTouchStart(e) {
+	  touches = e.touches[0];
+	  startTx = touches.clientX;
+	  startTy = touches.clientY;
+	};
+
+	var changedTouches;
+	var evt;
+	var onTouchEnd = function onTouchEnd(e) {
+	  changedTouches = e.changedTouches[0];
+	  if (Math.abs(startTx - changedTouches.clientX) < 5 && Math.abs(startTy - changedTouches.clientY) < 5) {
+	    if (CustomEvent) {
+	      evt = new CustomEvent('tap', {
+	        bubbles: true,
+	        cancelable: true
+	      });
+	    } else {
+	      evt = document.createEvent('CustomEvent');
+	      evt.initEvent('tap', true, true);
+	    }
+	    e.target.dispatchEvent(evt);
 	  }
-	}
-	function throttle(fn, time, immediately) {
-	  var timer;
-	  var context;
-	  var args = [];
-	  var _arguments;
-	  return function () {
-	    context = this;
-	    if (immediately && !timer) {
-	      setArgs(args, arguments);
-	      fn.apply(context, args);
-	      args = [];
-	    }
-	    if (!timer) {
-	      _arguments = arguments;
-	      timer = setTimeout(function () {
-	        setArgs(args, _arguments);
-	        !immediately && fn.apply(context, args);
-	        args = [];
-	        timer = null;
-	      }, time);
-	    }
-	  };
-	}
+	};
+	var attach = function attach(elem) {
+	  elem.addEventListener('touchstart', onsTouchStart, listenerParam);
+	  elem.addEventListener('touchend', onTouchEnd, listenerParam);
+	};
 
-	exports.throttle = throttle;
+	exports.attach = attach;
 
 /***/ }
 /******/ ]);

@@ -64,7 +64,7 @@
 /******/ 	}
 
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0042776468131d8e011c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "86a9bbd32ac6947a6cdc"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 
@@ -584,18 +584,123 @@
 
 	'use strict';
 
-	var _throttle = __webpack_require__(1);
+	var _IntersectionObserver = __webpack_require__(1);
 
 	function id(name) {
 	  return document.getElementById(name);
 	}
 
-	id('btn').addEventListener('click', (0, _throttle.throttle)(function () {
-	  console.log('连续点击，只会每隔1000毫秒执行一次');
-	}, 1000, true));
+	var options = {
+	  root: null,
+	  rootMargin: ['0px', '0px', '0px', '0px'],
+	  threshold: 0.95
+	};
+	var callback = function callback(entries) {
+	  console.log(entries);
+	};
+	var observer = (0, _IntersectionObserver.IntersectionObserver)(callback, options);
+
+	var box = id('box');
+	observer.observe(box);
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.IntersectionObserver = undefined;
+
+	var _b_throttle = __webpack_require__(2);
+
+	function judgeCallback(callback, targets, root) {
+	  var fitTargets = [];
+	  for (var i = targets.length - 1; i >= 0; i--) {
+	    var target = targets[i];
+	    var rect = target.getBoundingClientRect();
+	    var rootBounds = getRootRect(root);
+	    var targetArea = rect.width * rect.height;
+	    var visibleLeft = rect.left < rootBounds.left ? rootBounds.left : rect.left;
+	    var visibleRight = rect.right > rootBounds.right ? rootBounds.right : rect.right;
+	    var visibleTop = rect.top < rootBounds.top ? rootBounds.top : rect.top;
+	    var visibleBottom = rect.bottom > rootBounds.bottom ? rootBounds.bottom : rect.bottom;
+	    var visibleArea = (visibleRight - visibleLeft) * (visibleBottom - visibleTop);
+	    var intersectionRatio = visibleArea / targetArea;
+
+	    if (intersectionRatio >= 0) {
+	      fitTargets.push({
+	        boundingClientRect: rect,
+	        rootBounds: rootBounds,
+	        intersectionRatio: intersectionRatio,
+	        target: target
+	      });
+	    }
+	  }
+	  callback(fitTargets);
+	} /**
+	   * 模拟IntersectionObserver API，实现部分方法，
+	   * 如果浏览器支持，直接返回接口
+	   * 原生的IntersectionObserver，如果被观察的元素有部分被父元素遮挡，例如overflow:hidden，会不触发，建议threshold不要设置1.0，可以比这个参数小一点，例如0.95
+	   * 
+	   */
+
+
+	function getRootRect(root) {
+	  var rootRect;
+	  if (root) {
+	    rootRect = root.getBoundingClientRect();
+	  } else {
+	    var html = document.documentElement;
+	    var body = document.body;
+	    rootRect = {
+	      top: 0,
+	      left: 0,
+	      right: html.clientWidth || body.clientWidth,
+	      width: html.clientWidth || body.clientWidth,
+	      bottom: html.clientHeight || body.clientHeight,
+	      height: html.clientHeight || body.clientHeight
+	    };
+	  }
+	  return rootRect;
+	}
+
+	function ObserverEntry(callback, options) {
+	  var root = options.root;
+	  var self = this;
+	  if (root) {
+	    root.addEventListener('scroll', (0, _b_throttle.throttle)(function () {
+	      judgeCallback(callback, self.targets, root);
+	    }, 100));
+	  } else {
+	    window.addEventListener('scroll', (0, _b_throttle.throttle)(function () {
+	      judgeCallback(callback, self.targets, root);
+	    }, 100));
+	  }
+	  this.targets = [];
+	}
+
+	ObserverEntry.prototype.observe = function (target) {
+	  this.targets.push(target);
+	};
+
+	function IntersectionObserver(callback, options) {
+	  // if ('IntersectionObserver' in window &&
+	  //     'IntersectionObserverEntry' in window &&
+	  //     'intersectionRatio' in window.IntersectionObserverEntry.prototype) {
+	  //   return new window.IntersectionObserver(callback, options);
+	  // } else {
+	  //   return new ObserverEntry(callback, options);
+	  // }
+	  return new ObserverEntry(callback, options);
+	}
+
+	exports.IntersectionObserver = IntersectionObserver;
+
+/***/ },
+/* 2 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -624,7 +729,6 @@
 	  var timer;
 	  var context;
 	  var args = [];
-	  var _arguments;
 	  return function () {
 	    context = this;
 	    if (immediately && !timer) {
@@ -633,9 +737,8 @@
 	      args = [];
 	    }
 	    if (!timer) {
-	      _arguments = arguments;
 	      timer = setTimeout(function () {
-	        setArgs(args, _arguments);
+	        setArgs(args, arguments);
 	        !immediately && fn.apply(context, args);
 	        args = [];
 	        timer = null;

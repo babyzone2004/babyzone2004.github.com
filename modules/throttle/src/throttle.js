@@ -19,6 +19,7 @@ function throttle(fn, time, immediately) {
   var timer;
   var context;
   var args = [];
+  var _arguments;
   return function() {
     context = this;
     if(immediately && !timer) {
@@ -27,8 +28,9 @@ function throttle(fn, time, immediately) {
       args = [];
     }
     if(!timer) {
+      _arguments = arguments;
       timer = setTimeout(function() {
-        setArgs(args, arguments);
+        setArgs(args, _arguments);
         !immediately && fn.apply(context, args);
         args = [];
         timer = null;

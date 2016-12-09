@@ -1,7 +1,7 @@
 {
-  "name": "bLazyload",
+  "name": "b_lazyload",
   "version": "1.0.0",
-  "description": "a simple&fast lazyload event module with smooth scroll",
+  "description": "高性能lazyload模块",
   "main": "src/lazyload.js",
   "scripts": {
     "build": "babel --plugins transform-es2015-modules-commonjs ./src/lazyload.js --out-file ./dist/lazyload-commonjs.js; babel --plugins transform-es2015-modules-amd ./src/lazyload.js --out-file ./dist/lazyload-amd.js;babel --plugins transform-es2015-modules-umd ./src/lazyload.js --out-file ./dist/lazyload-umd.js",
@@ -23,7 +23,10 @@
     "jshint-loader": "^0.8.3",
     "webpack": "^1.13.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "b_observer": "^1.0.1",
+    "b_throttle": "^1.0.10"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/babyzone2004/babyzone2004.github.com/tree/master/modules/lazyload"
