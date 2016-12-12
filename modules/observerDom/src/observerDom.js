@@ -6,12 +6,11 @@
 var throttle = require('b_throttle/dist/throttle-commonjs.js').throttle;
 function judgeCallback(callback, targets, root, threshold) {
   var fitTargets = [];
+  var rootBounds = getRootRect(root);
+  
   for (var i = 0, ii = targets.length; i < ii; i++) {
     var target = targets[i];
     var rect = target.getBoundingClientRect();
-    var rootBounds = getRootRect(root);
-    var targetArea = rect.width * rect.height;
-
     var visibleWidth;
     if(rect.right < rootBounds.left || rect.left > rootBounds.right) {
       visibleWidth = 0;
@@ -30,11 +29,10 @@ function judgeCallback(callback, targets, root, threshold) {
       visibleHeight = rect.bottom - rootBounds.top;
     } else if(rect.bottom > rootBounds.bottom) {
       visibleHeight = rootBounds.bottom - rect.top;
-    } else {
+    } else { 
       visibleHeight = rect.height;
     }
-    var visibleArea = visibleWidth * visibleHeight;
-    var intersectionRatio = visibleArea / targetArea;
+    var intersectionRatio = (visibleWidth * visibleHeight) / (rect.width * rect.height);
 
     if(intersectionRatio >= threshold) {
       fitTargets.push({
@@ -72,6 +70,7 @@ function ObserverEntry(callback, options) {
   var self = this;
   this.options = options;
   this.callback = callback;
+  
   if(root) {
     root.addEventListener('scroll', throttle(function() {
       judgeCallback(callback, self.targets, root, options.threshold);
@@ -87,7 +86,6 @@ function ObserverEntry(callback, options) {
 
 ObserverEntry.prototype.observe = function(target) {
   this.targets.push(target);
-  judgeCallback(this.callback, [target], this.options.root, this.options.threshold);
 };
 
 

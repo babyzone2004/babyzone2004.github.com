@@ -1,6 +1,6 @@
 {
   "name": "IntersectionObserver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "实时监听dom元素是否在视口之内",
   "main": "src/tap.js",
   "scripts": {
