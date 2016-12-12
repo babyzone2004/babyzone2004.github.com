@@ -1,43 +1,90 @@
-# 模拟移动端tap事件
+# 监控dom曝光
 
 > 提供es6,amd,commonjs,umd版本
 
 ## Feature
 
-1. 与IOS,Android点击交互保持一致，点击或长按触发‘tap’事件
-2. 粒度小，包括注释不到50行代码
-3. Chromium51+版本，默认开启passive:true（[Passive Event Listeners](https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md)），滚动优化，更流畅，效果对比点击[这里](https://rbyers.github.io/scroll-latency.html)
-4. 兼容主流系统，Android 4.0+
+1. 只会完全露出才曝光
+2. 提供window或者dom节点的滚动监控
+3. 支持横向滚动监控
 
 ## Getting Started
 
 ```shell
-$ npm install bTap
+$ npm install b_exposure
 ```
+
+### Constructor
+
+| param          | 描述                                   |
+| :------------- | :----------------------------------- |
+| handler        | 滚动的容器                                |
+| selector       | 被监控的元素selector,被cache后，这个selector会被删除 |
+| debounceTime   | 滚动后延迟的时间                        |
+| callback   | 回调函数                        |
 
 ## API
 
-### attach
+### cacheItem
 
-| param | 描述                   |
-| :---- | :------------------- |
-| node  | 传入需要绑定的dom对象，一般是body |
+将新的元素更新到缓存中
+
+### addExtralHandler
+
+增加横向滚动的监听
+
+| param     | 描述           |
+| :-------- | :----------- |
+| container | 监听横向滚动的dom容器 |
+
+### updateCache
+
+更新缓存元素的位置信息，通常页面位置发生变化后需要执行此操作
+
+### clearMemory
+
+根据提供的top和bottom，清除这一高度区域的缓存
+
+| param  | 描述          |
+| :----- | :---------- |
+| top    | 元素顶部相对页面的高度 |
+| bottom | 元素底部相对页面的高度 |
+
+### updateContainSize
+
+更新容器尺寸，通常容器发生改变执行此操作
+
+### clearElemMemory
+
+删除某个元素的缓存
+
+### getScrollTop
+
+获取页面滚动高度
 
 ## Usage
 
-使用attach绑定到dom上，通过事件侦听‘tap’事件
-
 ```js
 //es6:
-import * as tap from 'bTap';
-var bd = document.body;
-tap.attach(bd);
-bd.addEventListener('tap', function () {
-  console.log('tap fire');
+function id(name) {
+  return document.getElementById(name);
+}
+
+import {Exposure} from 'b_exposure.js';
+
+var exposure = new Exposure({
+  selector: '.J_lazyload',
+  extralHandler: id('J_scroll'),
+  loadImmdiately: true,
+  callback: function(items) {
+    console.log(items);
+  }
 });
+exposure.cacheItem();
+exposure.addExtralHandler(id('J_scroll1'));
 
 //commonjs
-var tap = require('bTap/dist/tap-commonjs.js');
+var Exposure = require('b_exposure/dist/exposure.js').Exposure;
 
 //amd umd
 ...
@@ -45,4 +92,4 @@ var tap = require('bTap/dist/tap-commonjs.js');
 
 ## Sample
 
-http://babyzone2004.github.io/modules/tap/sample/index.html
+http://babyzone2004.github.io/modules/exposure/sample/index.html

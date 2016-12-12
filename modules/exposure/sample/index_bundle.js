@@ -64,7 +64,7 @@
 /******/ 	}
 
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f2efe004d03ea8c183a5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "df628d57a43096a32259"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 
@@ -584,81 +584,290 @@
 
 	'use strict';
 
-	var _tap = __webpack_require__(1);
-
-	var tap = _interopRequireWildcard(_tap);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	var _exposure = __webpack_require__(1);
 
 	function id(name) {
 	  return document.getElementById(name);
 	}
 
-	tap.attach(document.body);
-	id('btn').addEventListener('tap', function () {
-	  alert('tap event');
+	var lazyload = new _exposure.Lazyload({
+	  extralHandler: id('J_scroll'),
+	  loadImmdiately: true
 	});
+	lazyload.cacheImg();
+	lazyload.addExtralHandler(id('J_scroll1'));
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.Exposure = undefined;
+
+	var _b_throttle = __webpack_require__(2);
+
+	var _b_observer = __webpack_require__(3);
+
 	/**
-	 * tap.js 
-	 * @description a simple & effective tap,support passive=true,scroll smooth
-	 * @author babyzone2004
+	 * 应用曝光统计，把当前元素（应用、专题等）停留一秒的应用往客户端打点
+	 * 对于横划的应用，如果出现在feed流里面，可能会出现统计不准
+	 * @author: babyzone2004
+	 * @date: 2016/4/18
 	 */
 
-	// https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
-	var listenerParam;
-	try {
-	  var opts = Object.defineProperty({}, 'passive', {
-	    get: function get() {
-	      listenerParam = { passive: true };
+	/**
+	 * @param {Boolean} contain 设置容器
+	 * @param {Boolean} global 是否是全局lazy
+	 * @param {String} apps 需要检测曝光的应用
+	 * @param {Number} timeout 滚动的间隔
+	 * @param {Number} offsetTop 偏离顶部的位移
+	 * @param {String} extralDoms 是否需要监听内部dom的滚动事件
+	 */
+
+	var Exposure = function Exposure() {
+	  var me = this;
+	  me.scrollStop = true;
+	  opt = this.opt = this.mix({
+	    selector: '.J_exposure',
+	    debounceTime: '1000',
+	    handler: window
+	  }, opt);
+	  _b_observer.Observer.call(this, opt.handler, opt.selector);
+
+	  var renderCacheImgs = function renderCacheImgs() {
+	    me.scrollStop = true;
+	    while (downloadedImgs.length !== 0) {
+	      render(downloadedImgs.shift());
 	    }
-	  });
-	  addEventListener('test', null, opts);
-	} catch (e) {
-	  listenerParam = false;
+	  };
+	  this.debounceRender = debounce(renderCacheImgs, opt.debounceTime);
+	};
+
+	Exposure.prototype = new _b_observer.Observer();
+	Exposure.prototype.constructor = Exposure;
+
+	Exposure.prototype.scrollCb = function (e, isExtra) {
+	  this.throttleLoad(e, isExtra);
+	  this.debounceRender(e, isExtra);
+	};
+
+	exports.Exposure = Exposure;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	/**
+	* 截流函数
+	* @param fn {Function} 实际要执行的函数
+	* @param delay {Number} 间隔执行时间，单位是毫秒
+	* @param immediately {Number} 
+	* 是否需要立即执行一次，像lazyload这种情况，没必要设置true
+	* 如果开启，最后一次执行可能会被setTimeout abort调
+	* 
+	* @return {Function} 
+	*/
+
+	// 针对chromium内核优化,https://github.com/GoogleChrome/devtools-docs/issues/53
+	function setArgs(newArgs, oldArgs) {
+	  for (var i = 0, ii = oldArgs.length; i < ii; i++) {
+	    newArgs.push(oldArgs[i]);
+	  }
+	}
+	function throttle(fn, time, immediately) {
+	  var timer;
+	  var context;
+	  var args = [];
+	  var _arguments;
+	  return function() {
+	    context = this;
+	    if(immediately && !timer) {
+	      setArgs(args, arguments);
+	      fn.apply(context, args);
+	      args = [];
+	    }
+	    if(!timer) {
+	      _arguments = arguments;
+	      timer = setTimeout(function() {
+	        setArgs(args, _arguments);
+	        !immediately && fn.apply(context, args);
+	        args = [];
+	        timer = null;
+	      }, time);
+	    }
+	  };
 	}
 
-	var touches;
-	var startTx;
-	var startTy;
-	var onsTouchStart = function onsTouchStart(e) {
-	  touches = e.touches[0];
-	  startTx = touches.clientX;
-	  startTy = touches.clientY;
+	export {
+	  throttle
 	};
 
-	var changedTouches;
-	var evt;
-	var onTouchEnd = function onTouchEnd(e) {
-	  changedTouches = e.changedTouches[0];
-	  if (Math.abs(startTx - changedTouches.clientX) < 5 && Math.abs(startTy - changedTouches.clientY) < 5) {
-	    if (CustomEvent) {
-	      evt = new CustomEvent('tap', {
-	        bubbles: true,
-	        cancelable: true
-	      });
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	
+	/**
+	* observe.js 
+	* @description 监听元素是否在视口之内的基类
+	* @author babyzone2004
+	*/
+
+	var win = window;
+
+	function Observer(handler, selector) {
+	  if(handler) {
+	    var me = this;
+	    this.cache = {};
+	    this.selector = selector;
+	    this.positions = [];
+	    this.handler = handler;
+	    if (handler === win) {
+	      this.container = document.body;
 	    } else {
-	      evt = document.createEvent('CustomEvent');
-	      evt.initEvent('tap', true, true);
+	      this.container = handler;
 	    }
-	    e.target.dispatchEvent(evt);
+	    this.offsetTop = this.handler === win? 0 : this.handler.getBoundingClientRect().top;
+	    this.updateContainSize();
+	    handler.addEventListener('scroll', function(e) {
+	      me.scrollStop = false;
+	      me.scrollCb(e);
+	    });
+	  }
+	}
+
+	Observer.prototype.mix = function(ori, dest) {
+	  for(var i in dest) {
+	    ori[i] = dest[i];
+	  }
+	  return ori;
+	};
+
+
+	Observer.prototype.cacheElem = function(cache, positions, elem, scrollTop) {
+	  var rect = elem.getBoundingClientRect();
+	  var top = Math.round(rect.top + scrollTop - this.offsetTop);
+	  var left = rect.left;
+	  if (!cache[top]) {
+	    positions.push(top);
+	    cache[top] = [];
+	  }
+	  var domCache = {
+	    dom: elem,
+	    left: left,
+	    right: rect.right,
+	    bottom: rect.bottom
+	  };
+	  cache[top].push(domCache);
+	  elem.classList.remove(this.selector);
+	};
+
+	/*
+	 * 更新加载数据，放到缓存中
+	 * @Param {NodeList} elems，图片
+	 * */
+	Observer.prototype.update = function() {
+	  var doms = this.container.querySelectorAll(this.selector);
+	  if (!doms.length) return;
+	  var cache = this.cache;
+	  var positions = this.positions;
+	  var scrollTop = this.getScrollTop();
+	  for (var i = 0, ii = doms.length; i < ii; i++) {
+	    var dom = doms[i];
+	    this.cacheElem(cache, positions, dom, scrollTop);
 	  }
 	};
-	var attach = function attach(elem) {
-	  elem.addEventListener('touchstart', onsTouchStart, listenerParam);
-	  elem.addEventListener('touchend', onTouchEnd, listenerParam);
+
+	/*
+	 * 更新加载数据，放到缓存中
+	 * @Param {NodeList} elems，图片
+	 * */
+	Observer.prototype.updateCache = function() {
+	  var cache = this.cache;
+	  var scrollTop = this.getScrollTop();
+	  var newCache = {};
+	  var newPosition = [];
+	  for(var i in cache) {
+	    var items = cache[i];
+	    for (var j = 0, jj = items.length; j < jj; j++) {
+	      var dom = items[j].dom;
+	      this.cacheElem(newCache, newPosition, dom, scrollTop);
+	    }
+	  }
+	  this.cache = newCache;
+	  this.positions = newPosition;
 	};
 
-	exports.attach = attach;
+	// 清除指定范围的图片内存
+	Observer.prototype.clearMemory = function(top, bottom) {
+	  var me = this;
+	  var cache = me.cache;
+	  top = Math.round(top);
+	  bottom = Math.round(bottom);
+	  top -= this.offsetTop;
+	  bottom -= this.offsetTop;
+	  me.positions = me.positions.filter(function(position) {
+	    var match = position >= top && position < bottom;
+	    if (match) {
+	      cache[position] = [];
+	    }
+	    return !match;
+	  });
+	};
+
+	// 更新容器尺寸
+	Observer.prototype.updateContainSize = function() {
+	  var handler = this.handler;
+	  if (handler === win) {
+	    this.handlerHeight = win.innerHeight;
+	    this.handlerWidth = win.innerWidth;
+	  } else {
+	    this.handlerHeight = handler.clientHeight;
+	    this.handlerWidth = handler.clientWidth;
+	  }
+	};
+
+	// 删除某个指定元素的缓存
+	Observer.prototype.clearElemMemory = function(elem) {
+	  var cache = this.cache;
+	  for(var i in cache) {
+	    var elems = cache[i];
+	    if(elems) {
+	      var index = elems.indexOf(elem);
+	      elems.splice(index, 1);
+	    }
+	  }
+	};
+
+	Observer.prototype.getScrollTop = function() {
+	  if (this.handler === win) {
+	    return win.scrollY;
+	  } else {
+	    return this.handler.scrollTop;
+	  }
+	};
+
+	Observer.prototype.scrollCb = function() {};
+
+	/**
+	 * 增加额外的横向滚动处理
+	 * @param {[type]} $dom [description]
+	 */
+	Observer.prototype.addExtralHandler = function(handler) {
+	  var me = this;
+	  handler.addEventListener('scroll', function(e) {
+	    me.scrollStop = false;
+	    me.scrollCb(e, true);
+	  });
+	};
+
+	export {
+	  Observer
+	};
 
 /***/ }
 /******/ ]);

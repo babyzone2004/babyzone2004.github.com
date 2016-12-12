@@ -66,10 +66,10 @@ function Lazyload(opt) {
   }, opt.interval);
 
   var downloadedImgs = me.downloadedImgs = [];
-  var renderCacheImgs = function(fadeIn) {
+  var renderCacheImgs = function() {
     me.scrollStop = true;
     while(downloadedImgs.length !== 0) {
-      render(downloadedImgs.shift(), fadeIn);
+      render(downloadedImgs.shift(), opt.fadeIn);
     }
   };
   this.debounceRender = debounce(renderCacheImgs, 64);
@@ -77,7 +77,7 @@ function Lazyload(opt) {
 
 Lazyload.prototype.scrollCb = function(e, isExtra) {
   this.throttleLoad(e, isExtra);
-  this.debounceRender(e, isExtra);
+  this.debounceRender();
 };
 
 Lazyload.prototype.cacheElem = function(cache, positions, elem, scrollTop) {
@@ -97,7 +97,7 @@ Lazyload.prototype.cacheElem = function(cache, positions, elem, scrollTop) {
     lazy: lazy
   };
   cache[top].push(imgCache);
-  elem.classList.remove('J_lazyload');
+  elem.classList.remove(this.selector);
   if(this.loadImmdiately && !lazy && left < this.handlerWidth) {
     this.load(imgCache);
   }

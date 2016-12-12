@@ -21,7 +21,7 @@ $ npm install b_lazy
 | param          | 描述                                   |
 | :------------- | :----------------------------------- |
 | handler        | 滚动的容器                                |
-| selector       | 被监控的元素selector                       |
+| selector       | 被监控的元素selector,被cache后，这个selector会被删除 |
 | buffer         | 上下buffer                             |
 | interval       | throttle的时间间隔                        |
 | fadeIn         | 是否渐现                                 |

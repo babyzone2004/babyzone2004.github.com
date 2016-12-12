@@ -1,3 +1,14 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Exposure = undefined;
+
+var _b_debounce = require('b_debounce');
+
+var _b_observer = require('b_observer');
+
 /**
  * 曝光统计
  * @author: babyzone2004
@@ -10,26 +21,23 @@
  * @param {String} callback 曝光回调
  */
 
-import {debounce} from 'b_debounce';
-import {Observer} from 'b_observer';
-
-var Exposure = function(opt) {
+var Exposure = function Exposure(opt) {
   var me = this;
   me.scrollStop = true;
   opt = this.opt = this.mix({
     selector: '.J_exposure',
     debounceTime: '1000',
     handler: window,
-    callback: function() {}
+    callback: function callback() {}
   }, opt);
-  Observer.call(this, opt.handler, opt.selector);
-  me.debounceExposure = debounce(me.exposureApp, opt.debounceTime);
+  _b_observer.Observer.call(this, opt.handler, opt.selector);
+  me.debounceExposure = (0, _b_debounce.debounce)(me.exposureApp, opt.debounceTime);
 };
 
-Exposure.prototype = new Observer();
+Exposure.prototype = new _b_observer.Observer();
 Exposure.prototype.constructor = Exposure;
 
-Exposure.prototype.scrollCb = function(e, isExtra) {
+Exposure.prototype.scrollCb = function (e, isExtra) {
   this.debounceExposure(e, isExtra);
 };
 
@@ -37,13 +45,13 @@ Exposure.prototype.scrollCb = function(e, isExtra) {
  * 更新加载数据，放到缓存中
  * @Param {NodeList} elems，图片
  * */
-Exposure.prototype.cacheItem = function() {
+Exposure.prototype.cacheItem = function () {
   this.update();
   this.debounceExposure();
 };
 
 // 加载符合条件的图片
-Exposure.prototype.exposureApp = function(e, horizon) {
+Exposure.prototype.exposureApp = function (e, horizon) {
   var me = this;
   var cache = me.cache;
   var top = me.getScrollTop();
@@ -51,7 +59,7 @@ Exposure.prototype.exposureApp = function(e, horizon) {
 
   // 返回要加载的索引
   var activeBottom = top + this.handlerHeight;
-  var LoadIndexs = this.positions.filter(function(pos) {
+  var LoadIndexs = this.positions.filter(function (pos) {
     if (pos > top && pos < activeBottom) {
       return true;
     }
@@ -64,8 +72,8 @@ Exposure.prototype.exposureApp = function(e, horizon) {
     scrollLeft = target.scrollLeft;
     var targetHeight = target.clientHeight;
     var targetTop = Math.round(target.getBoundingClientRect().top);
-    LoadIndexs = LoadIndexs.filter(function(item){
-      if(targetTop + top <= item && item <= targetTop + top + targetHeight){
+    LoadIndexs = LoadIndexs.filter(function (item) {
+      if (targetTop + top <= item && item <= targetTop + top + targetHeight) {
         return true;
       }
     });
@@ -85,6 +93,4 @@ Exposure.prototype.exposureApp = function(e, horizon) {
   me.opt.callback(exposureItems);
 };
 
-export {
-  Exposure
-};
+exports.Exposure = Exposure;

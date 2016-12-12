@@ -12,11 +12,11 @@ import {debounce} from 'b_debounce';
 var contains = [];
 var evt;
 function observeScrollStop(contain, delay) {
-  delay = delay? delay : 64;
   var pos = contains.indexOf(contain);
   if(pos !== -1) {
     return;
   }
+  delay = delay? delay : 64;
   contains.push(contain);
   var scrollStop = function(contain) {
     if (CustomEvent) {
