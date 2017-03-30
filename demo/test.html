@@ -7,12 +7,33 @@
 </head>
 <body>
 <script>
-	var a = document.cookie;
-  if(a == "a=1") {
-      alert(a);
+	var getCookie = function(name) {
+    var cookie = document.cookie;
+      if (cookie.length > 0) {
+        var start = cookie.indexOf(name + "=");
+        if (start != -1) {
+          start = start + name.length + 1;
+          end = cookie.indexOf(";", start);
+          if (end == -1) {
+            end = cookie.length;
+          }
+          return decodeURIComponent(cookie.substring(start, end));
+        }
+      }
+    };
+  var setCookie = function(name, value, expiredays) {
+      var exdate = new Date();
+      exdate.setDate(exdate.getDate() + expiredays);
+      document.cookie = name + "=" + encodeURIComponent(value) +
+      ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString()) + ";path=/";
+    }
+
+	var testCookie = getCookie('test');
+  if(testCookie === '1') {
+    alert(testCookie);
   } else {
-	  document.cookie="a=1"
-      alert("第一次种cookie：a=1");
+    setCookie('test', '1', 1);
+    alert('cookie 1')
   }
 </script>
 </body>
