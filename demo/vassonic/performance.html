@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>VasSonic</title>
+  <meta name="description" content="vassonic性能测试demo">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1"/>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+<div id="perf"></div>
+    
+<script>
+  window.onload = function () {
+    var performance = window.performance;
+    var timing = performance.timing;
+
+    // DNS 解析耗时：
+    var DNS = timing.domainLookupEnd - timing.domainLookupStart;
+    // TCP 链接耗时：
+    var TCP = timing.connectEnd - timing.connectStart;
+    // Waiting (TTFB)
+    var Waiting = timing.responseStart - timing.requestStart;
+    // Content Download
+    var contentDownload = timing.responseEnd - timing.responseStart;
+    // HTML加载完毕总耗时
+    var loadHTML = timing.responseEnd - timing.navigationStart;
+    // 构建dom时间（DOM 解析完成后，网页内资源加载完成的时间（如 JS 脚本加载执行完毕））
+    var DOM = timing.domComplete - timing.responseEnd;
+    var performanceInfo = {
+      DNS_time: DNS,
+      TCP_time: TCP,
+      Waiting_time: Waiting,
+      contentDownload_time: contentDownload,
+      loadHTML_time: loadHTML,
+      DOM_time: DOM
+    };
+    document.getElementById("perf").innerHTML = `
+    DNS 解析耗时：${DNS} <br>
+    TCP：${TCP} <br>
+    Waiting (TTFB)：${Waiting} <br>
+    HTML内容下载耗时：${contentDownload} <br>
+    HTML加载完毕总耗时：${loadHTML} <br>
+    构建dom时间：${DOM} <br>
+    `;
+  }
+</script>
+  </body>
+</html>
