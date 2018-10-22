@@ -36,6 +36,8 @@
     var loadHTML = timing.responseEnd - timing.navigationStart;
     // 构建dom时间（DOM 解析完成后，网页内资源加载完成的时间（如 JS 脚本加载执行完毕））
     var DOM = timing.domComplete - timing.responseEnd;
+    // 看到页面的耗时（）
+    var render = timing.domComplete - timing.navigationStart;
     var performanceInfo = {
       DNS_time: DNS,
       TCP_time: TCP,
@@ -51,6 +53,7 @@
     HTML内容下载耗时：${contentDownload} <br>
     HTML加载完毕总耗时：${loadHTML} <br>
     构建dom时间：${DOM} <br>
+    从发起请求到看到完整页面的耗时：${render} <br>
     `;
   }
 </script>
